@@ -119,7 +119,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
       fuel: "Petrol",
       transmission: "Manual",
       mileage: "48,000",
-      price: 4850,
+      price: 4995,
       description: "Ford Fiesta 1.0 ecoboost",
       features: [
         "Warranty included",
