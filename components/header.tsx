@@ -23,7 +23,7 @@ export default function Header() {
         <Link href="/" className="flex items-center">
           <div className="rounded-xl overflow-hidden bg-white">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-3333.jpg-YnvySvQbVVBjVJf8beedckI5jtF4Wo.jpeg"
+              src="https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/Screenshot%202025-05-10%20at%2012.23.11.png"
               alt="GJC500 - Premier Car Dealership Logo"
               width={180}
               height={60}
