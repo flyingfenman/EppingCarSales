@@ -64,8 +64,8 @@ export default function Contact() {
               <MapPin className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold mb-2">Visit Us</h3>
-            <p className="text-muted-foreground mb-4">Strictly Appointment Only</p>
-            <p className="font-medium">Blackjack Farm, Swineshead</p>
+            <p className="text-muted-foreground mb-4">Appointment Only</p>
+            <p className="font-medium">Blackjack Farm, Swineshead, PE203HJ</p>
           </CardContent>
         </Card>
       </div>
@@ -200,7 +200,7 @@ export default function Contact() {
       <div className="rounded-lg overflow-hidden h-[400px] relative">
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
           <div className="bg-background p-6 rounded-lg max-w-md text-center">
-            <h3 className="text-xl font-bold mb-2">Visit Our Showroom</h3>
+            <h3 className="text-xl font-bold mb-2">Visit Us</h3>
             <p className="mb-4">Blackjack Farm, Dances Bank, Swineshead, Boston, PE203HJ</p>
             <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
           </div>
