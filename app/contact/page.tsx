@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { AlertCircle, CheckCircle2, Phone, Mail, MapPin, Clock } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { sendContactEmail } from "@/app/actions/send-email"
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
@@ -20,11 +21,35 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget)
+    const result = await sendContactEmail(formData)
+
+    if (result.success) {
       setFormStatus("success")
-      setIsSubmitting(false)
-    }, 1500)
+
+      // Create mailto link with the form data
+      const subject = `New ${formData.get("inquiry-type") || "Contact"} from ${formData.get("name")}`
+      const body = `
+Name: ${formData.get("name")}
+Email: ${formData.get("email")}
+Phone: ${formData.get("phone") || "Not provided"}
+Inquiry Type: ${formData.get("inquiry-type") || "General"}
+
+Message:
+${formData.get("message")}
+      `.trim()
+
+      const mailtoLink = `mailto:henrythorogood@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+
+      // Open the user's email client
+      window.location.href = mailtoLink
+
+      e.currentTarget.reset() // Clear the form
+    } else {
+      setFormStatus("error")
+    }
+
+    setIsSubmitting(false)
   }
 
   return (
@@ -79,7 +104,7 @@ export default function Contact() {
               <CheckCircle2 className="h-4 w-4" />
               <AlertTitle>Success!</AlertTitle>
               <AlertDescription>
-                Your message has been sent. We'll get back to you as soon as possible.
+                Your email client should open with your message. Send it to complete your inquiry!
               </AlertDescription>
             </Alert>
           )}
@@ -88,7 +113,7 @@ export default function Contact() {
             <Alert className="mb-6 bg-red-50 text-red-800 border-red-200">
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error!</AlertTitle>
-              <AlertDescription>There was a problem sending your message. Please try again.</AlertDescription>
+              <AlertDescription>There was a problem processing your message. Please try again.</AlertDescription>
             </Alert>
           )}
 
@@ -96,22 +121,22 @@ export default function Contact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
-                <Input id="name" required placeholder="John Doe" />
+                <Input id="name" name="name" required placeholder="John Doe" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" required placeholder="john.doe@example.com" />
+                <Input id="email" type="email" name="email" required placeholder="john.doe@example.com" />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number</Label>
-              <Input id="phone" type="tel" placeholder="07740 080073" />
+              <Input id="phone" type="tel" name="phone" placeholder="07740 080073" />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="inquiry-type">Inquiry Type</Label>
-              <Select>
+              <Select name="inquiry-type">
                 <SelectTrigger id="inquiry-type">
                   <SelectValue placeholder="Select an inquiry type" />
                 </SelectTrigger>
@@ -126,7 +151,7 @@ export default function Contact() {
 
             <div className="space-y-2">
               <Label htmlFor="message">Your Message</Label>
-              <Textarea id="message" required placeholder="Type your message here..." rows={6} />
+              <Textarea id="message" name="message" required placeholder="Type your message here..." rows={6} />
             </div>
 
             <Button
@@ -134,7 +159,7 @@ export default function Contact() {
               className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              {isSubmitting ? "Processing..." : "Send Message"}
             </Button>
           </form>
         </div>
