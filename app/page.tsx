@@ -8,13 +8,13 @@ export default function Home() {
   const [featuredCars] = useState([
     {
       id: 1,
-      title: "Mini Clubman",
-      year: 2015,
+      title: "Volvo V40",
+      year: 2018,
       fuel: "Diesel",
       transmission: "Manual",
-      mileage: "74,000",
-      price: "£6,995",
-      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1630%202.HEIC",
+      mileage: "81,000",
+      price: "£10,250",
+      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2054.HEIC",
       featured: true,
     },
     {
@@ -26,6 +26,18 @@ export default function Home() {
       mileage: "48,000",
       price: "£4,995",
       image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/IMG_1685.jpeg",
+      featured: true,
+    },
+
+    {
+      id: 3,
+      title: "Volkswagen Golf",
+      year: 2018,
+      fuel: "Petrol",
+      transmission: "Manual",
+      mileage: "68,000",
+      price: "£9,200",
+      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1877.heic",
       featured: true,
     },
   ])

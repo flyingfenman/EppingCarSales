@@ -21,154 +21,276 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
-export default function CarDetails({ params }: { params: { id: string } }) {
+interface Car {
+  id: number
+  title: string
+  make: string
+  model: string
+  year: number
+  fuel: "Diesel" | "Petrol" | "Electric" | "Hybrid"
+  transmission: "Manual" | "Automatic"
+  mileage: string
+  price: number
+  featured: boolean
+  image: string
+  description: string
+  features: string[]
+  specs: {
+    engine: string
+    power: string
+    acceleration: string
+    topSpeed: string
+    fuelEconomy: string
+    co2: string
+    roadTax: string
+    insurance: string
+  }
+  images: string[]
+}
+
+const cars: Car[] = [
+  {
+    id: 1,
+    title: "Mini Clubman",
+    make: "Mini",
+    model: "Clubman",
+    year: 2015,
+    fuel: "Diesel",
+    transmission: "Manual",
+    mileage: "74,000",
+    price: 6995,
+    featured: false,
+    image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1630%202.HEIC",
+    description: "Mini Clubman 2.0 Diesel just been serviced has a full mot, drives excellently",
+    features: [
+      "Warranty included",
+      "Service history",
+      "35 road tax",
+      "2 keys",
+      "Air Conditioning",
+      "Rear parking sensors",
+      "6 speed",
+      "Heated seats",
+      "Bluetooth Hands Free Function with USB Audio",
+      "Cruise Control with Brake Function",
+      "MINI Navigation System",
+      "DAB Tuner",
+      "16in Alloy Wheels - Revolite",
+      "3-Spoke Sport Leather Steering Wheel",
+      "Airbags - Front Passenger with Deactivation Switch",
+      "Start-Stop Button with Keyless Start",
+      "Central Locking - Remote",
+      "Daytime Running Lights",
+      "Door Mirrors - Electrically Adjustable and Heated",
+      "Electric Windows - Front - One Touch Up and Down",
+      "Electronic Parking Brake",
+      "Front Fog Lights",
+      "Headlights - Automatic Lights-On",
+      "Hill Assist",
+      "Interior Lighting Integrated into Centre Front Headliner",
+      "Interior Mirror - Mechanical Anti-Dazzle",
+      "MINI Central Display with LED Ring",
+      "Multifunction Controls for Steering Wheel",
+      "Rear Passenger ISOFIX",
+      "TPWS - Tyre Pressure Warning System",
+      "HPI clear",
+    ],
+    specs: {
+      engine: "2.0L Turbo",
+      power: "170 bhp",
+      acceleration: "8.4 seconds (0-60 mph)",
+      topSpeed: "132 mph",
+      fuelEconomy: "31.4 mpg",
+      co2: "199 g/km",
+      roadTax: "£35 per year",
+      insurance: "Group 15",
+    },
+    images: [
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1630%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1631%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1632%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1626.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1634.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1635.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1636.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1637.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1638.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1639.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1641.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1642%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1643.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1644.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1645.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1646.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1647.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1648.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1649%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1650.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1654.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1655.HEIC",
+    ],
+  },
+  {
+    id: 2,
+    title: "Ford Fiesta",
+    make: "Ford",
+    model: "Fiesta",
+    year: 2015,
+    fuel: "Petrol",
+    transmission: "Manual",
+    mileage: "48,000",
+    price: 4995,
+    featured: true,
+    image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1685%202.HEIC",
+    description: "Ford Fiesta 1.0 ecoboost",
+    features: [
+      "Warranty included",
+      "Full Service history",
+      "20 road tax",
+      "2 keys",
+      "Air Conditioning",
+      "5 speed manual",
+      "Bluetooth Hands Free Function with USB Audio",
+      "DAB Tuner",
+      "Central Locking - Remote",
+      "Daytime Running Lights",
+      "Electric Windows - Front - One Touch Up and Down",
+      "Front Fog Lights",
+      "Headlights - Automatic Lights-On",
+      "HPI clear",
+    ],
+    specs: {
+      engine: "1.0L ecoboost",
+      power: "99 bhp",
+      acceleration: "8.4 seconds (0-60 mph)",
+      topSpeed: "132 mph",
+      fuelEconomy: "57 mpg",
+      co2: "199 g/km",
+      roadTax: "£20 per year",
+      insurance: "Group 15",
+    },
+    images: [
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1685%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1686%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1687%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1688%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1689%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1690%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1691%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1692%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1693%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1698%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1699%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1700%202.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1701%202.HEIC",
+    ],
+  },
+  {
+    id: 3,
+    title: "Volkswagen Golf",
+    make: "Volkswagen",
+    model: "Golf",
+    year: 2018,
+    fuel: "Petrol",
+    transmission: "Manual",
+    mileage: "68,000",
+    price: 9200,
+    featured: true,
+    image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1877.heic",
+    description: "Volkswagen Golf with Apple Car Play. A perfect example of a well-looked-after car.",
+    features: [
+      "Warranty included",
+      "Service history",
+      "2 keys",
+      "Air Conditioning",
+      "6 speed manual",
+      "Apple Car Play",
+      "DAB Tuner",
+      "HPI clear",
+    ],
+    specs: {
+      engine: "1.0L",
+      power: "99 bhp",
+      acceleration: "6.4 seconds (0-60 mph)",
+      topSpeed: "132 mph",
+      fuelEconomy: "57 mpg",
+      co2: "199 g/km",
+      roadTax: "£280 per year",
+      insurance: "Group 13",
+    },
+    images: [
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1877.heic",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1878.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1880.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1882.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1883.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1884.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1885.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1889.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1890.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1891.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1892.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1893.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1894.HEIC",
+    ],
+  },
+  {
+    id: 4,
+    title: "Volvo V40",
+    make: "Volvo",
+    model: "V40",
+    year: 2018,
+    fuel: "Diesel",
+    transmission: "Manual",
+    mileage: "81,000",
+    price: 10250,
+    featured: true,
+    image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2054.HEIC",
+    description:
+      "A reliable and stylish Volvo V40 with a full service history. Great for city driving and long journeys.",
+    features: ["Full Service History", "Low Mileage", "Heated Seats", "Parking Sensors", "Bluetooth", "Cruise Control"],
+    specs: {
+      engine: "2.0L D3",
+      power: "150 bhp",
+      acceleration: "8.4s (0-60 mph)",
+      topSpeed: "130 mph",
+      fuelEconomy: "72.8 mpg",
+      co2: "102 g/km",
+      roadTax: "£20 per year",
+      insurance: "Group 18",
+    },
+    images: [
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2054.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2055.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2056.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2057.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2058.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2059.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2060.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2061.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2062.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2063.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2064.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2065.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2066.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2067.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2068.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2069.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2070.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2071.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2072.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2073.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2074.HEIC",
+      "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2075.HEIC",
+    ],
+  },
+]
+
+export default function CarDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params
 
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [inquirySent, setInquirySent] = useState(false)
-
-  // This would normally come from a database
-  const cars = [
-    {
-      id: 1,
-      title: "Mini Clubman",
-      make: "Mini",
-      model: "Clubman",
-      year: 2015,
-      fuel: "Diesel",
-      transmission: "Manual",
-      mileage: "74,000",
-      price: 6995,
-      description: "Mini Clubman 2.0 Diesel just been serviced has a full mot, drives excellently",
-      features: [
-        "Warranty included",
-        "Service history",
-        "35 road tax",
-        "2 keys",
-        "Air Conditioning",
-        "Rear parking sensors",
-        "6 speed",
-        "Heated seats",
-        "Bluetooth Hands Free Function with USB Audio",
-        "Cruise Control with Brake Function",
-        "MINI Navigation System",
-        "DAB Tuner",
-        "16in Alloy Wheels - Revolite",
-        "3-Spoke Sport Leather Steering Wheel",
-        "Airbags - Front Passenger with Deactivation Switch",
-        "Start-Stop Button with Keyless Start",
-        "Central Locking - Remote",
-        "Daytime Running Lights",
-        "Door Mirrors - Electrically Adjustable and Heated",
-        "Electric Windows - Front - One Touch Up and Down",
-        "Electronic Parking Brake",
-        "Front Fog Lights",
-        "Headlights - Automatic Lights-On",
-        "Hill Assist",
-        "Interior Lighting Integrated into Centre Front Headliner",
-        "Interior Mirror - Mechanical Anti-Dazzle",
-        "MINI Central Display with LED Ring",
-        "Multifunction Controls for Steering Wheel",
-        "Rear Passenger ISOFIX",
-        "TPWS - Tyre Pressure Warning System",
-        "HPI clear",
-      ],
-      specs: {
-        engine: "2.0L Turbo",
-        power: "170 bhp",
-        acceleration: "8.4 seconds (0-60 mph)",
-        topSpeed: "132 mph",
-        fuelEconomy: "31.4 mpg",
-        co2: "199 g/km",
-        roadTax: "£35 per year",
-        insurance: "Group 15",
-      },
-      images: [
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1630%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1631%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1632%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1626.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1634.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1635.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1636.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1637.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1638.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1639.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1641.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1642%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1643.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1644.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1645.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1646.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1647.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1648.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1649%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1650.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1654.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD/IMG_1655.HEIC",
-
-      ],
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Ford Fiesta",
-      make: "Ford",
-      model: "Fiesta",
-      year: 2015,
-      fuel: "Petrol",
-      transmission: "Manual",
-      mileage: "48,000",
-      price: 4995,
-      description: "Ford Fiesta 1.0 ecoboost",
-      features: [
-        "Warranty included",
-        "Full Service history",
-        "20 road tax",
-        "2 keys",
-        "Air Conditioning",
-        "5 speed manual",
-        "Bluetooth Hands Free Function with USB Audio",
-        "DAB Tuner",
-        "Central Locking - Remote",
-        "Daytime Running Lights",
-        "Electric Windows - Front - One Touch Up and Down",
-        "Front Fog Lights",
-        "Headlights - Automatic Lights-On",
-        "HPI clear",
-      ],
-      specs: {
-        engine: "1.0L ecoboost",
-        power: "99 bhp",
-        acceleration: "8.4 seconds (0-60 mph)",
-        topSpeed: "132 mph",
-        fuelEconomy: "57 mpg",
-        co2: "199 g/km",
-        roadTax: "£20 per year",
-        insurance: "Group 15",
-      },
-      images: [
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1685%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1686%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1687%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1688%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1689%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1690%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1691%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1692%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1693%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1698%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1699%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1700%202.HEIC",
-        "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH/IMG_1701%202.HEIC",
-
-
-
-
-      ],
-      featured: true,
-    },
-  ]
 
   const car = cars.find((c) => c.id === Number.parseInt(id))
 
@@ -203,7 +325,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
         <div className="lg:col-span-2">
           <div className="relative rounded-lg overflow-hidden mb-4">
             <Image
-              src={car.images[activeImageIndex] || "/placeholder.svg?height=500&width=300&query=car"}
+              src={car.images[activeImageIndex] || "/placeholder.svg?height=600&width=800&query=car"}
               alt={`${car.title} - Image ${activeImageIndex + 1}`}
               width={800}
               height={600}
@@ -230,7 +352,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
             </Button>
           </div>
 
-          <div className="grid grid-cols-4 gap-2 mb-8">
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 mb-8">
             {car.images.slice(0, 8).map((image, index) => (
               <button
                 key={index}
@@ -240,7 +362,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
                 }`}
               >
                 <Image
-                  src={image || "/placeholder.svg?height=500&width=300&query=car"}
+                  src={image || "/placeholder.svg?height=150&width=200&query=car-thumbnail"}
                   alt={`${car.title} - Thumbnail ${index + 1}`}
                   width={200}
                   height={150}
@@ -332,7 +454,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
         </div>
 
         <div className="lg:col-span-1">
-          <Card className="mb-6">
+          <Card className="mb-6 sticky top-6">
             <CardContent className="p-6">
               <h1 className="text-2xl font-bold mb-2">{car.title}</h1>
               <p className="text-3xl font-bold text-primary mb-6">£{car.price.toLocaleString()}</p>
@@ -389,7 +511,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
               <div className="space-y-4">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="w-full bg-gjc-yellow text-black hover:bg-gjc-yellow-hover">
+                    <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
                       Inquire About This Car
                     </Button>
                   </DialogTrigger>
@@ -453,7 +575,7 @@ export default function CarDetails({ params }: { params: { id: string } }) {
                             required
                           />
                         </div>
-                        <Button type="submit" className="w-full bg-gjc-yellow text-black hover:bg-gjc-yellow-hover">
+                        <Button type="submit" className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
                           Send Inquiry
                         </Button>
                       </form>
@@ -461,60 +583,10 @@ export default function CarDetails({ params }: { params: { id: string } }) {
                   </DialogContent>
                 </Dialog>
 
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full bg-transparent">
                   <Share2 className="h-4 w-4 mr-2" />
                   Share This Car
                 </Button>
-
-                <Button asChild variant="outline" className="w-full">
-                  <Link href="/contact">Book a Test Drive</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold mb-4">Need Help?</h3>
-              <p className="text-muted-foreground mb-4">
-                Our team is here to help you find the perfect car. Contact us for more information.
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-primary mr-2"
-                  >
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                  </svg>
-                  <span>07740 080073</span>
-                </div>
-                <div className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-primary mr-2"
-                  >
-                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                  </svg>
-                  <span>henrythorogood@icloud.com</span>
-                </div>
               </div>
             </CardContent>
           </Card>
