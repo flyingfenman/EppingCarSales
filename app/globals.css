@@ -220,4 +220,113 @@
   .footer-links a {
     @apply text-gray-300 hover:text-white;
   }
+
+  /* Privacy Policy Styles - Added to existing components layer */
+  .privacy-policy-container {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  .privacy-content {
+    @apply bg-card rounded-lg shadow-md p-6 md:p-8;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .privacy-header {
+    @apply border-b pb-6 mb-8;
+    border-color: hsl(var(--border));
+  }
+
+  .privacy-header h1 {
+    @apply text-3xl md:text-4xl font-bold mb-2 text-foreground;
+  }
+
+  .last-updated {
+    @apply text-muted-foreground italic text-sm;
+  }
+
+  .privacy-intro {
+    @apply mb-8 p-6 rounded-lg;
+    background: hsl(var(--muted));
+    border-left: 4px solid hsl(var(--gjc-yellow));
+  }
+
+  .privacy-intro p {
+    @apply mb-4 text-foreground leading-relaxed;
+  }
+
+  .privacy-intro p:last-child {
+    @apply mb-0;
+  }
+
+  .privacy-sections section {
+    @apply mb-8;
+  }
+
+  .privacy-sections h2 {
+    @apply text-xl md:text-2xl font-bold mb-4 text-foreground pl-4;
+    border-left: 4px solid hsl(var(--gjc-yellow));
+  }
+
+  .privacy-sections p {
+    @apply mb-4 text-foreground leading-relaxed;
+  }
+
+  .privacy-sections ul {
+    @apply mb-4 pl-6 space-y-2;
+  }
+
+  .privacy-sections li {
+    @apply text-foreground leading-relaxed;
+  }
+
+  .privacy-sections strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .contact-info {
+    @apply p-6 rounded-lg;
+    background: hsl(var(--muted));
+    border-left: 4px solid hsl(var(--gjc-yellow));
+  }
+
+  .contact-info p {
+    @apply mb-2 text-foreground;
+  }
+
+  .contact-info p:last-child {
+    @apply mb-0;
+  }
+
+  .privacy-footer {
+    @apply border-t pt-6 text-center;
+    border-color: hsl(var(--border));
+  }
+
+  .back-link {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors;
+    background: hsl(var(--gjc-yellow));
+    color: black;
+  }
+
+  .back-link:hover {
+    background: hsl(var(--gjc-yellow-hover));
+  }
+
+  @media (max-width: 768px) {
+    .privacy-policy-container {
+      @apply px-4 py-6;
+    }
+
+    .privacy-content {
+      @apply p-4;
+    }
+
+    .privacy-header h1 {
+      @apply text-2xl;
+    }
+
+    .privacy-sections h2 {
+      @apply text-lg;
+    }
+  }
 }

@@ -79,7 +79,7 @@ ${formData.get("message")}
             </div>
             <h3 className="text-xl font-bold mb-2">Email Us</h3>
             <p className="text-muted-foreground mb-4">We'll respond promptly</p>
-            <p className="font-medium">henrythorogood@icloud.com</p>
+            <p className="font-medium">henry@gjc500.co.uk</p>
           </CardContent>
         </Card>
 
