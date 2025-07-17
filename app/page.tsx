@@ -37,7 +37,7 @@ export default function Home() {
       transmission: "Manual",
       mileage: "68,000",
       price: "£9,200",
-      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR/IMG_1877.heic",
+      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR%20JPG/IMG_1877.jpg",
       featured: true,
     },
   ])
