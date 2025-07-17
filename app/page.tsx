@@ -14,7 +14,7 @@ export default function Home() {
       transmission: "Manual",
       mileage: "81,000",
       price: "£10,250",
-      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KL18NAO/IMG_2054.HEIC",
+      image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/GL18AXR%20JPG/IMG_1877.jpg",
       featured: true,
     },
     {
