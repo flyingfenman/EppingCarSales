@@ -23,7 +23,7 @@ export default function Home() {
       year: 2015,
       fuel: "Petrol",
       transmission: "Manual",
-      mileage: "48,000",
+      mileage: "51,000",
       price: "£4,995",
       image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/IMG_1685.jpeg",
       featured: true,
