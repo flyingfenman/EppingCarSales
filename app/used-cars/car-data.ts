@@ -114,7 +114,7 @@ export const cars: Car[] = [
       "HPI clear",
     ],
     specs: {
-      engine: "1.0L ",
+      engine: "1.0L",
       power: "99 bhp",
       acceleration: "8.4 seconds (0-60 mph)",
       topSpeed: "132 mph",
