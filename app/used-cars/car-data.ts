@@ -96,7 +96,7 @@ export const cars: Car[] = [
     price: 4995,
     featured: true,
     image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/BU15PXH%20JPG/IMG_1685%202.jpg",
-    description: "Ford Fiesta 1.0 ecoboost",
+    description: "Ford Fiesta 1.0",
     features: [
       "Warranty included",
       "Full Service history",
@@ -114,7 +114,7 @@ export const cars: Car[] = [
       "HPI clear",
     ],
     specs: {
-      engine: "1.0L ecoboost",
+      engine: "1.0L ",
       power: "99 bhp",
       acceleration: "8.4 seconds (0-60 mph)",
       topSpeed: "132 mph",
