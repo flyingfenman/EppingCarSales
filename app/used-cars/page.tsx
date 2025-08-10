@@ -340,7 +340,7 @@ const cars: Car[] = [
     mileage: "54,000",
     price: 8995,
     featured: false,
-    image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PK65XXD%20JPG/IMG_1630.jpg",
+    image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/FE67EBG%20JPG/IMG_2803.jpg",
     description: "Mini Clubman 2.0 Diesel just been serviced has a full mot, drives excellently",
     features: [
       "Warranty included",
