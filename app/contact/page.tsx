@@ -68,7 +68,7 @@ ${formData.get("message")}
             </div>
             <h3 className="text-xl font-bold mb-2">Call Us</h3>
             <p className="text-muted-foreground mb-4">Our team is here to help</p>
-            <p className="font-medium">07740 080073</p>
+            <p className="font-medium">07376624097</p>
           </CardContent>
         </Card>
 
