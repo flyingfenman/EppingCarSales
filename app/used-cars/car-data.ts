@@ -378,7 +378,7 @@ export const cars: Car[] = [
   },
     {
        id: 8,
-  title: "`Jeep Renegade 1.6",
+  title: "Jeep Renegade 1.6",
   make: "Jeep",
   model: "Renegade",
   year: 2016,
