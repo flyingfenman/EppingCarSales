@@ -5,6 +5,7 @@ import "./globals.css"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
+import { WhatsAppButton } from "@/components/ui/whatsapp-button"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: "GJC500 - Premier Car Dealership",
   description:
     "GJC500 - Premier dealership for quality used cars at competitive prices. Browse our inventory or schedule a test drive today!",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -27,6 +28,10 @@ export default function RootLayout({
           <Header />
           <main className="min-h-screen">{children}</main>
           <Footer />
+          <WhatsAppButton
+            phoneNumber="+447376624097"
+            message="Hello! I'm interested in learning more about your cars at GJC500."
+          />
         </ThemeProvider>
       </body>
     </html>
