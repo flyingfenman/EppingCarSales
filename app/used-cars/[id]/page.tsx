@@ -496,7 +496,7 @@ const cars: Car[] = [
   fuel: "Diesel",
   transmission: "Manual",
   mileage: "57,500",
-  price: 164995,
+  price: 16995,
   featured: true,
   image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/DX19XJH%20JPG/IMG_2999.jpg", // Main listing image
   description: "Description of the car...",
