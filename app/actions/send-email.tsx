@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,63 +13,56 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSubmitting(true)
-
-    if (!e.currentTarget) {
-      setFormStatus("error")
-      setIsSubmitting(false)
-      return
-    }
 
     try {
-      const formData = new FormData(e.currentTarget)
-
-      // Validate required fields
-      const name = formData.get("name") as string
-      const email = formData.get("email") as string
-      const message = formData.get("message") as string
-
-      if (!name || !email || !message) {
+      if (!e.currentTarget) {
         setFormStatus("error")
-        setIsSubmitting(false)
         return
       }
 
-      const subject = `New ${formData.get("inquiry-type") || "Contact"} from ${name}`
-      const body = `
-Name: ${name}
+      const formData = new FormData(e.currentTarget)
+      const name = formData.get("name") as string
+      const email = formData.get("email") as string
+      const phone = (formData.get("phone") as string) || "Not provided"
+      const inquiryType = (formData.get("inquiry-type") as string) || "General"
+      const message = formData.get("message") as string
+
+      const subject = `New ${inquiryType} Inquiry from ${name}`
+      const body = `Name: ${name}
 Email: ${email}
-Phone: ${formData.get("phone") || "Not provided"}
-Inquiry Type: ${formData.get("inquiry-type") || "General"}
+Phone: ${phone}
+Inquiry Type: ${inquiryType}
 
 Message:
-${message}
-      `.trim()
+${message}`
 
       const mailtoLink = `mailto:henry@gjc500.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-
-      // Open the user's email client
       window.location.href = mailtoLink
 
       setFormStatus("success")
 
-      if (e.currentTarget && typeof e.currentTarget.reset === "function") {
-        setTimeout(() => {
-          if (e.currentTarget && typeof e.currentTarget.reset === "function") {
-            e.currentTarget.reset()
+      setTimeout(() => {
+        try {
+          const form = e.currentTarget
+          if (form && typeof form.reset === "function") {
+            form.reset()
           }
-        }, 100)
-      }
+        } catch (resetError) {
+          console.error("Form reset failed:", resetError)
+        }
+      }, 500)
     } catch (error) {
       console.error("Form submission error:", error)
       setFormStatus("error")
     }
-
-    setIsSubmitting(false)
   }
 
   return (
@@ -124,9 +116,7 @@ ${message}
             <Alert className="mb-6 bg-green-50 text-green-800 border-green-200">
               <CheckCircle2 className="h-4 w-4" />
               <AlertTitle>Success!</AlertTitle>
-              <AlertDescription>
-                Your email client should open with your message. Send it to complete your inquiry!
-              </AlertDescription>
+              <AlertDescription>Your email client will open with the message ready to send!</AlertDescription>
             </Alert>
           )}
 
@@ -175,12 +165,8 @@ ${message}
               <Textarea id="message" name="message" required placeholder="Type your message here..." rows={6} />
             </div>
 
-            <Button
-              type="submit"
-              className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Processing..." : "Send Message"}
+            <Button type="submit" className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">
+              Send Message
             </Button>
           </form>
         </div>
@@ -243,25 +229,27 @@ ${message}
         </div>
       </div>
 
-      <div className="rounded-lg overflow-hidden h-[400px] relative">
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
-          <div className="bg-background p-6 rounded-lg max-w-md text-center">
-            <h3 className="text-xl font-bold mb-2">Visit Us</h3>
-            <p className="mb-4">Blackjack Farm, Dances Bank, Swineshead, Boston, PE203HJ</p>
-            <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
+      {isClient && (
+        <div className="rounded-lg overflow-hidden h-[400px] relative">
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+            <div className="bg-background p-6 rounded-lg max-w-md text-center">
+              <h3 className="text-xl font-bold mb-2">Visit Us</h3>
+              <p className="mb-4">Blackjack Farm, Dances Bank, Swineshead, Boston, PE203HJ</p>
+              <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
+            </div>
           </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9935.658355237862!2d-0.1418!3d51.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzI2LjYiTiAwwrAwOCczMC41Ilc!5e0!3m2!1sen!2suk!4v1616603835275!5m2!1sen!2suk"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            title="GJC500 Location"
+            className="w-full h-full"
+          />
         </div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9935.658355237862!2d-0.1418!3d51.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzI2LjYiTiAwwrAwOCczMC41Ilc!5e0!3m2!1sen!2suk!4v1616603835275!5m2!1sen!2suk"
-          width="100%"
-          height="400"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          title="GJC500 Location"
-          className="w-full h-full"
-        ></iframe>
-      </div>
+      )}
     </div>
   )
 }
