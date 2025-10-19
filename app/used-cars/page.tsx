@@ -591,6 +591,38 @@ const cars: Car[] = [
     "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PY69CPO/PY69CP30.jpg",
     ],
   },
+ {
+        id: 11,
+  title: "Honda Jazz",
+  make: "Honda",
+  model: "Jazz",
+  year: 2018,
+  fuel: "Petrol",
+  transmission: "Automatic",
+  mileage: "71000",
+  price: 9950,
+  featured: false,
+  image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/Jazz.jpg", // Main listing image
+  description: "Description of the car...",
+  features: [
+    "Feature 1",
+    "Feature 2",
+    "Feature 3",
+  ],
+  specs: {
+    engine: "1.8L",
+    power: "130 bhp",
+    acceleration: "7.5 seconds (0-60 mph)",
+    topSpeed: "140 mph",
+    fuelEconomy: "45 mpg",
+    co2: "150 g/km",
+    roadTax: "£0 per year",
+    insurance: "Group 11",
+  },
+  images: [
+    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/Jazz.jpg",
+    ],
+  },
 ]
 export default function UsedCars() {
   const [make, setMake] = useState("")
