@@ -617,13 +617,13 @@ const cars: Car[] = [
   transmission: "Automatic",
   mileage: "71000",
   price: 9950,
-  featured: false,
+  featured: true,
   image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/SM68WSJ%20JPG/SM68WSJ1.jpg", // Main listing image
   description: "Description of the car...",
   features: [
-    "Feature 1",
-    "Feature 2",
-    "Feature 3",
+    "Garmin Sat Nav",
+    "Automatic",
+    "Low Insurance",
   ],
   specs: {
     engine: "1.8L",
@@ -679,7 +679,7 @@ const cars: Car[] = [
   transmission: "Manual",
   mileage: "27,200",
   price: 9850,
-  featured: false,
+  featured: true,
   image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KO18KLK%20JPG/KO18KLK1.jpg", // Main listing image
   description: "2018 Toyota Yaris – the perfect small car with big reliability.\n" +
       "Powered by a smooth and efficient 1.5L petrol engine, this Yaris delivers excellent fuel economy, low running costs, and that unbeatable Toyota dependability.\n" +
@@ -748,7 +748,7 @@ const cars: Car[] = [
   transmission: "Manual",
   mileage: "92,200",
   price: 9350,
-  featured: false,
+  featured: true,
   image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/PY67CFX%20JPG/PY67CFX1.jpg", // Main listing image
   description: "2017 Volvo V60 Cross Country with 92,000 miles and full service history. The timing belt has been replaced recently, and the bodywork is in excellent condition throughout. It features full leather seats, satellite navigation, and a very comfortable driving experience. This car has been well cared for, coming from a pet-free and smoke-free home, and is finished in a lovely colour combination that really sets it apart.",
   features: [
