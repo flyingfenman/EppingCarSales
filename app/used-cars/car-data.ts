@@ -631,11 +631,19 @@ export const cars: Car[] = [
   price: 9850,
   featured: false,
   image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KO18KLK%20JPG/KO18KLK1.jpg", // Main listing image
-  description: "Description of the car...",
+  description: "2018 Toyota Yaris – the perfect small car with big reliability.\n" +
+      "Powered by a smooth and efficient 1.5L petrol engine, this Yaris delivers excellent fuel economy, low running costs, and that unbeatable Toyota dependability.\n" +
+      "\n" +
+      "This one comes with a great spec including touchscreen infotainment, Bluetooth, reversing camera, air conditioning, and alloy wheels. Compact, easy to park, and lovely to drive – ideal for town or motorway use.\n" +
+      "\n" +
+      "Covered just 27,237 miles with full Toyota main dealer service history.\n" +
+      "Comes with 1 year Toyota main dealer warranty for total peace of mind.\n" +
+      "\n" +
+      "Priced at just £9,850 – fantastic value for a low-mileage, main dealer-approved Yaris.\n",
   features: [
-    "Feature 1",
-    "Feature 2",
-    "Feature 3",
+    "Reversing Camera",
+    "Full Main Dealer Service History",
+    "Very low mileage",
   ],
   specs: {
     engine: "1.8L",
