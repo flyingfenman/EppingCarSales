@@ -52,6 +52,7 @@ export default function Home() {
                 src="https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/gjc500.jpg"
                 alt="GJC500 Dealership - Quality Used Cars"
                 fill
+                sizes="400px"
                 style={{
                   objectFit: "cover",
                   objectPosition: "center",
@@ -69,9 +70,9 @@ export default function Home() {
             <Link href="/used-cars" className="btn">
               Browse Inventory
             </Link>
-            <Link href="/contact" className="btn btn-outline">
-              Book a Test Drive
-            </Link>
+            <a href="https://www.youtube.com/@gjc500" target="_blank" rel="noopener noreferrer" className="btn btn-red">
+              Watch Our YouTube Channel
+            </a>
           </div>
         </div>
       </section>
@@ -106,8 +107,9 @@ export default function Home() {
                   src={car.image || "/placeholder.svg?height=500&width=300&query=car"}
                   alt={car.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
-                  unoptimized={car.image?.includes(".HEIC")}
+                  loading="lazy"
                 />
                 {car.featured && <span className="badge">Featured</span>}
               </div>

@@ -117,6 +117,10 @@
     @apply bg-transparent border border-current hover:bg-gray-100;
   }
 
+  .btn-red {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+
   .intro {
     @apply py-12 bg-white;
   }
@@ -163,6 +167,18 @@
 
   .badge {
     @apply absolute top-2 right-2 bg-yellow-400 text-black px-3 py-1 rounded-md font-medium;
+  }
+
+  /* Fixed sold badge styling to work on hover of card, not just badge itself */
+  .badge-sold {
+    @apply absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-md font-medium transition-all duration-300;
+    opacity: 0.5;
+    filter: grayscale(80%);
+  }
+
+  .group:hover .badge-sold {
+    opacity: 1;
+    filter: grayscale(0%);
   }
 
   .car-card-content {

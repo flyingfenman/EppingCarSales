@@ -9,6 +9,8 @@ export interface Car {
   mileage: string
   price: number
   featured: boolean
+  sold?: boolean
+  youtubeUrl?: string
   image: string // Main image for listing page
   description: string
   features: string[]

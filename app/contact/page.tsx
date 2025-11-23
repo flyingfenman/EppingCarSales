@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -11,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { AlertCircle, CheckCircle2, Phone, Mail, MapPin, Clock } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { sendContactEmail } from "@/app/actions/send-email"
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
@@ -19,58 +19,26 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    if (!e.currentTarget) {
-      setFormStatus("error")
-      setIsSubmitting(false)
-      return
-    }
+    setFormStatus("idle")
 
     try {
       const formData = new FormData(e.currentTarget)
 
-      // Validate required fields
-      const name = formData.get("name") as string
-      const email = formData.get("email") as string
-      const message = formData.get("message") as string
+      // Call server action to send email
+      const result = await sendContactEmail(formData)
 
-      if (!name || !email || !message) {
+      if (result.success) {
+        setFormStatus("success")
+        e.currentTarget.reset()
+      } else {
         setFormStatus("error")
-        setIsSubmitting(false)
-        return
-      }
-
-      const subject = `New ${formData.get("inquiry-type") || "Contact"} from ${name}`
-      const body = `
-Name: ${name}
-Email: ${email}
-Phone: ${formData.get("phone") || "Not provided"}
-Inquiry Type: ${formData.get("inquiry-type") || "General"}
-
-Message:
-${message}
-      `.trim()
-
-      const mailtoLink = `mailto:henry@gjc500.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-
-      // Open the user's email client
-      window.location.href = mailtoLink
-
-      setFormStatus("success")
-
-      if (e.currentTarget && typeof e.currentTarget.reset === "function") {
-        setTimeout(() => {
-          if (e.currentTarget && typeof e.currentTarget.reset === "function") {
-            e.currentTarget.reset()
-          }
-        }, 100)
       }
     } catch (error) {
       console.error("Form submission error:", error)
       setFormStatus("error")
+    } finally {
+      setIsSubmitting(false)
     }
-
-    setIsSubmitting(false)
   }
 
   return (
@@ -123,9 +91,9 @@ ${message}
           {formStatus === "success" && (
             <Alert className="mb-6 bg-green-50 text-green-800 border-green-200">
               <CheckCircle2 className="h-4 w-4" />
-              <AlertTitle>Success!</AlertTitle>
+              <AlertTitle>Message Sent!</AlertTitle>
               <AlertDescription>
-                Your email client should open with your message. Send it to complete your inquiry!
+                Your message has been sent successfully to henry@gjc500.co.uk. We'll get back to you soon!
               </AlertDescription>
             </Alert>
           )}
@@ -134,7 +102,9 @@ ${message}
             <Alert className="mb-6 bg-red-50 text-red-800 border-red-200">
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error!</AlertTitle>
-              <AlertDescription>There was a problem processing your message. Please try again.</AlertDescription>
+              <AlertDescription>
+                There was a problem sending your message. Please try calling us at 07376624097.
+              </AlertDescription>
             </Alert>
           )}
 
@@ -180,7 +150,7 @@ ${message}
               className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Processing..." : "Send Message"}
+              {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </div>
