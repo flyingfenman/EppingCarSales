@@ -21,15 +21,17 @@ export default function Contact() {
     setIsSubmitting(true)
     setFormStatus("idle")
 
+    const form = e.currentTarget
+
     try {
-      const formData = new FormData(e.currentTarget)
+      const formData = new FormData(form)
 
       // Call server action to send email
       const result = await sendContactEmail(formData)
 
       if (result.success) {
         setFormStatus("success")
-        e.currentTarget.reset()
+        form.reset()
       } else {
         setFormStatus("error")
       }
@@ -57,7 +59,8 @@ export default function Contact() {
             </div>
             <h3 className="text-xl font-bold mb-2">Call Us</h3>
             <p className="text-muted-foreground mb-4">Our team is here to help</p>
-            <p className="font-medium">07376624097</p>
+            <p className="font-medium">+447376624097</p>
+            <p className="font-medium">01205212339</p>
           </CardContent>
         </Card>
 
@@ -103,7 +106,7 @@ export default function Contact() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error!</AlertTitle>
               <AlertDescription>
-                There was a problem sending your message. Please try calling us at 07376624097.
+                There was a problem sending your message. Please try calling us at +447376624097.
               </AlertDescription>
             </Alert>
           )}
@@ -135,7 +138,6 @@ export default function Contact() {
                   <SelectItem value="general">General Inquiry</SelectItem>
                   <SelectItem value="sales">Sales Inquiry</SelectItem>
                   <SelectItem value="test-drive">Test Drive Request</SelectItem>
-                  <SelectItem value="service">Service Inquiry</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -147,7 +149,7 @@ export default function Contact() {
 
             <Button
               type="submit"
-              className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black"
+              className="w-full bg-[#F7B32B] hover:bg-[#E5A420] text-black font-semibold"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Sending..." : "Send Message"}
@@ -162,10 +164,11 @@ export default function Contact() {
               <div className="flex items-start mb-6">
                 <Clock className="h-5 w-5 text-primary mr-3 mt-0.5" />
                 <div>
-                  <h3 className="font-bold mb-2">Our Showroom Hours</h3>
-                  <p className="text-muted-foreground">
-                    Visit our showroom to view our selection of quality used cars.
+                  <h3 className="font-bold mb-2">Dealership Hours</h3>
+                  <p className="text-muted-foreground mb-2">
+                    Visit our dealership to view our selection of quality used cars.
                   </p>
+                  <p className="text-sm font-semibold text-primary">By appointment only</p>
                 </div>
               </div>
 
@@ -173,31 +176,6 @@ export default function Contact() {
                 <div className="flex justify-between">
                   <span>Monday - Friday</span>
                   <span>9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday</span>
-                  <span>10:00 AM - 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span>10:00 AM - 4:00 PM</span>
-                </div>
-              </div>
-
-              <div className="border-t my-6"></div>
-
-              <div className="flex items-start mb-6">
-                <Clock className="h-5 w-5 text-primary mr-3 mt-0.5" />
-                <div>
-                  <h3 className="font-bold mb-2">Service Center Hours</h3>
-                  <p className="text-muted-foreground">Our service center is available for maintenance and repairs.</p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span>Monday - Friday</span>
-                  <span>8:00 AM - 5:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>
