@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -813,75 +813,16 @@ const cars: Car[] = [
       "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/SC65WWS%20JPG/SC65WWS23.jpg",
     ],
   },
-  {
-  id: 15,
-  title: "Volvo V40",
-  make: "Volvo",
-  model: "V40",
-  year: 2018,
-  fuel: "Diesel",
-  transmission: "Manual",
-  mileage: "75000",
-  price: 7450,
-  featured: true,
-  image: "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ1.jpg",
-  description: "2018 Volvo V40 D4 Momentum – powerful, economical and great value. A fantastic-looking example finished in a lovely colour, powered by the 2.0 D4 diesel engine with a smooth 6-speed manual gearbox. Strong performance, great MPG and proper Volvo reliability. It has covered 75,000 miles with six services in the book. It has just been serviced and has new Pirelli rear tyres. Very well maintained and ready to drive away. The Momentum spec includes satellite navigation, Bluetooth, cruise control, air conditioning and Volvo’s premium interior and safety features. Runs and drives excellently – a brilliant hatchback that is both quick and economical. Priced at just £7,450 – outstanding value for a D4 Momentum.",
-  features: [
-    "Air Conditioning",
-    "Cruise Control",
-    "Satellite Navigation",
-    "Bluetooth",
-    "DAB Radio"
-  ],
-  specs: {
-    engine: "2.0",
-    power: "187 bhp",
-    acceleration: "7",
-    topSpeed: "155",
-    fuelEconomy: "58",
-    co2: "134",
-    roadTax: "195",
-    insurance: "28",
-  },
-  images: [
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ1.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ2.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ3.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ4.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ5.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ6.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ7.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ8.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ9.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ10.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ11.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ12.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ13.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ14.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ15.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ16.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ17.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ18.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ19.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ120.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ21.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ22.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ23.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ24.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ25.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ26.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ27.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ28.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ29.jpg",
-    "https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/KN18KZZ/KN18KZZ30.jpg"
-    ],
-  },
 ]
+
 export default function CarDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params
 
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [inquirySent, setInquirySent] = useState(false)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
+  const thumbnailContainerRef = useRef<HTMLDivElement>(null)
 
   const car = cars.find((c) => c.id === Number.parseInt(id))
 
@@ -896,6 +837,33 @@ export default function CarDetailsPage({ params }: { params: { id: string } }) {
   const handleNextImage = () => {
     setActiveImageIndex((prev) => (prev === car.images.length - 1 ? 0 : prev + 1))
   }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setTouchEnd(e.changedTouches[0].clientX)
+    handleSwipe()
+  }
+
+  const handleSwipe = () => {
+    if (touchStart - touchEnd > 50) {
+      handleNextImage()
+    }
+    if (touchEnd - touchStart > 50) {
+      handlePrevImage()
+    }
+  }
+
+  useEffect(() => {
+    if (thumbnailContainerRef.current) {
+      const activeButton = thumbnailContainerRef.current.querySelector('[data-active="true"]') as HTMLElement
+      if (activeButton) {
+        activeButton.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+      }
+    }
+  }, [activeImageIndex])
 
   const handleSubmitInquiry = (e: React.FormEvent) => {
     e.preventDefault()
@@ -914,19 +882,26 @@ export default function CarDetailsPage({ params }: { params: { id: string } }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <div className="relative rounded-lg overflow-hidden mb-4">
-            <Image
-              src={car.images[activeImageIndex] || "/placeholder.svg?height=600&width=800&query=car"}
-              alt={`${car.title} - Image ${activeImageIndex + 1}`}
-              width={800}
-              height={600}
-              className="w-full h-auto object-cover"
-              unoptimized={car.images[activeImageIndex]?.includes(".HEIC")}
-            />
+          <div
+            className="relative rounded-lg overflow-hidden mb-4 bg-gray-100"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="relative w-full overflow-hidden">
+              <Image
+                src={car.images[activeImageIndex] || "/placeholder.svg?height=600&width=800&query=car"}
+                alt={`${car.title} - Image ${activeImageIndex + 1}`}
+                width={800}
+                height={600}
+                className="w-full h-auto object-cover transition-opacity duration-300"
+                unoptimized={car.images[activeImageIndex]?.includes(".HEIC")}
+                priority
+              />
+            </div>
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background transition-all duration-200"
               onClick={handlePrevImage}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -935,29 +910,39 @@ export default function CarDetailsPage({ params }: { params: { id: string } }) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background transition-all duration-200"
               onClick={handleNextImage}
             >
               <ChevronRight className="h-6 w-6" />
               <span className="sr-only">Next image</span>
             </Button>
+            <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
+              {activeImageIndex + 1} / {car.images.length}
+            </div>
           </div>
 
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 mb-8">
-            {car.images.slice(0, 8).map((image, index) => (
+          <div
+            ref={thumbnailContainerRef}
+            className="flex gap-2 mb-8 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth"
+            style={{ scrollBehavior: "smooth" }}
+          >
+            {car.images.map((image, index) => (
               <button
                 key={index}
+                data-active={activeImageIndex === index}
                 onClick={() => setActiveImageIndex(index)}
-                className={`rounded-md overflow-hidden border-2 ${
-                  activeImageIndex === index ? "border-primary" : "border-transparent"
+                className={`flex-shrink-0 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center ${
+                  activeImageIndex === index
+                    ? "border-primary ring-2 ring-primary ring-offset-2"
+                    : "border-gray-300 hover:border-gray-400"
                 }`}
               >
                 <Image
-                  src={image || "/placeholder.svg?height=150&width=200&query=car-thumbnail"}
+                  src={image || "/placeholder.svg?height=100&width=100&query=car-thumbnail"}
                   alt={`${car.title} - Thumbnail ${index + 1}`}
-                  width={200}
-                  height={150}
-                  className="w-full h-auto object-cover"
+                  width={100}
+                  height={100}
+                  className="w-24 h-24 object-cover hover:opacity-80 transition-opacity"
                   unoptimized={image?.includes(".HEIC")}
                 />
               </button>
