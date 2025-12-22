@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AlertCircle, CheckCircle2, Phone, Mail, MapPin, Clock } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { sendContactEmail } from "@/app/actions/send-email"
+import { trackContactForm, trackPhoneClick } from "@/lib/analytics"
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle")
@@ -25,6 +26,7 @@ export default function Contact() {
 
     try {
       const formData = new FormData(form)
+      const inquiryType = formData.get("inquiry-type") as string
 
       // Call server action to send email
       const result = await sendContactEmail(formData)
@@ -32,6 +34,7 @@ export default function Contact() {
       if (result.success) {
         setFormStatus("success")
         form.reset()
+        trackContactForm(inquiryType || "general")
       } else {
         setFormStatus("error")
       }
@@ -59,8 +62,20 @@ export default function Contact() {
             </div>
             <h3 className="text-xl font-bold mb-2">Call Us</h3>
             <p className="text-muted-foreground mb-4">Our team is here to help</p>
-            <p className="font-medium">+447376624097</p>
-            <p className="font-medium">01205212339</p>
+            <a
+              href="tel:+447376624097"
+              className="font-medium hover:text-primary"
+              onClick={() => trackPhoneClick("+447376624097")}
+            >
+              +447376624097
+            </a>
+            <a
+              href="tel:01205212339"
+              className="font-medium hover:text-primary"
+              onClick={() => trackPhoneClick("01205212339")}
+            >
+              01205212339
+            </a>
           </CardContent>
         </Card>
 

@@ -6,6 +6,9 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { WhatsAppButton } from "@/components/ui/whatsapp-button"
+import { GoogleAnalytics } from "@/components/analytics/google-analytics"
+import { MetaPixel } from "@/components/analytics/meta-pixel"
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,6 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
+
+        {process.env.NEXT_PUBLIC_META_PIXEL_ID && <MetaPixel pixelId={process.env.NEXT_PUBLIC_META_PIXEL_ID} />}
+
         <ThemeProvider attribute="class" defaultTheme="light">
           <Header />
           <main className="min-h-screen">{children}</main>
@@ -33,6 +42,8 @@ export default function RootLayout({
             message="Hello! I'm interested in learning more about your cars at GJC500."
           />
         </ThemeProvider>
+
+        <Analytics />
       </body>
     </html>
   )

@@ -1,6 +1,7 @@
 "use client"
 
 import { MessageCircle } from "lucide-react"
+import { trackWhatsAppClick } from "@/lib/analytics"
 
 interface WhatsAppButtonProps {
   phoneNumber: string
@@ -12,6 +13,7 @@ export function WhatsAppButton({
   message = "Hello! I'm interested in your services.",
 }: WhatsAppButtonProps) {
   const handleClick = () => {
+    trackWhatsAppClick()
     const encodedMessage = encodeURIComponent(message)
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
     window.open(whatsappUrl, "_blank")

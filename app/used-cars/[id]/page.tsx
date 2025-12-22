@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import ReservationCheckout from "@/components/reservation-checkout"
+import { trackCarView } from "@/lib/analytics"
 
 interface Car {
   id: number
@@ -829,6 +830,10 @@ export default function CarDetailsPage({ params }: { params: { id: string } }) {
   if (!car) {
     notFound()
   }
+
+  useEffect(() => {
+    trackCarView(car.id.toString(), car.title, car.price)
+  }, [car.id, car.title, car.price])
 
   const handlePrevImage = () => {
     setActiveImageIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1))
