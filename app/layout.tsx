@@ -9,6 +9,7 @@ import { WhatsAppButton } from "@/components/ui/whatsapp-button"
 import { GoogleAnalytics } from "@/components/analytics/google-analytics"
 import { MetaPixel } from "@/components/analytics/meta-pixel"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -44,6 +45,7 @@ export default function RootLayout({
         </ThemeProvider>
 
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
