@@ -7,7 +7,7 @@ export default function Footer() {
         <p>&copy; 2025 GJC500. All rights reserved.</p>
         <div className="footer-links">
           <Link href="/privacy">Privacy Policy</Link>
-          <Link href="/admin/add-car">Admin</Link>
+          <Link href="/admin">Admin</Link>
           <Link href="/terms">Terms of Service</Link>
           <Link href="/contact">Contact</Link>
         </div>

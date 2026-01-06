@@ -68,6 +68,16 @@ export const trackWhatsAppClick = () => {
   })
 }
 
+// Track car inquiries
+export const trackInquiry = (carId: string, carTitle: string, source: string) => {
+  trackEvent("Lead", {
+    content_type: "vehicle_inquiry",
+    content_ids: [carId],
+    content_name: carTitle,
+    source: source,
+  })
+}
+
 // Track search
 export const trackSearch = (searchTerm: string) => {
   trackEvent("search", {

@@ -3,6 +3,10 @@
 import { stripe } from "@/lib/stripe"
 
 export async function startReservationCheckout(carId: string, carTitle: string) {
+  if (!stripe) {
+    throw new Error("Stripe is not configured. Please add your Stripe API keys.")
+  }
+
   // £99 reservation fee (in pence)
   const reservationPriceInPence = 9900
 
