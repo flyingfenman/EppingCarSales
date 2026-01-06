@@ -23,6 +23,34 @@ export function CarForm({ car, mode }: CarFormProps) {
   const [imageUrls, setImageUrls] = useState<string[]>(car?.images || [""])
   const [features, setFeatures] = useState<string[]>(car?.features || [""])
 
+  const [bulkBaseUrl, setBulkBaseUrl] = useState("")
+  const [bulkFilePrefix, setBulkFilePrefix] = useState("")
+  const [bulkStartNumber, setBulkStartNumber] = useState(1)
+  const [bulkEndNumber, setBulkEndNumber] = useState(1)
+  const [bulkExtension, setBulkExtension] = useState(".jpg")
+
+  const generateBulkImages = () => {
+    if (!bulkBaseUrl || !bulkFilePrefix) {
+      alert("Please enter both the Base URL and File Prefix")
+      return
+    }
+
+    const newUrls: string[] = []
+    for (let i = bulkStartNumber; i <= bulkEndNumber; i++) {
+      newUrls.push(`${bulkBaseUrl}${bulkFilePrefix}${i}${bulkExtension}`)
+    }
+
+    // Add to existing images (filter out empty ones first)
+    const existingUrls = imageUrls.filter((url) => url.trim() !== "")
+    setImageUrls([...existingUrls, ...newUrls])
+
+    // Clear the bulk form
+    setBulkBaseUrl("")
+    setBulkFilePrefix("")
+    setBulkStartNumber(1)
+    setBulkEndNumber(1)
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
@@ -208,6 +236,101 @@ export function CarForm({ car, mode }: CarFormProps) {
           <CardTitle>Images *</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div className="bg-muted/50 p-4 rounded-lg border border-dashed space-y-4">
+            <h4 className="font-medium text-sm">Bulk Image Generator</h4>
+            <p className="text-xs text-muted-foreground">
+              Quickly add multiple images with numbered filenames (e.g., SM68WSJ1.jpg to SM68WSJ31.jpg)
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <Label className="text-xs">Base URL (folder path)</Label>
+                <Input
+                  value={bulkBaseUrl}
+                  onChange={(e) => setBulkBaseUrl(e.target.value)}
+                  placeholder="https://pub-xxx.r2.dev/SM68WSJ%20JPG/"
+                  className="text-sm"
+                />
+              </div>
+              <div>
+                <Label className="text-xs">File Prefix (before number)</Label>
+                <Input
+                  value={bulkFilePrefix}
+                  onChange={(e) => setBulkFilePrefix(e.target.value)}
+                  placeholder="SM68WSJ"
+                  className="text-sm"
+                />
+              </div>
+              <div>
+                <Label className="text-xs">Start Number</Label>
+                <Input
+                  type="number"
+                  value={bulkStartNumber}
+                  onChange={(e) => setBulkStartNumber(Number(e.target.value))}
+                  min={1}
+                  className="text-sm"
+                />
+              </div>
+              <div>
+                <Label className="text-xs">End Number</Label>
+                <Input
+                  type="number"
+                  value={bulkEndNumber}
+                  onChange={(e) => setBulkEndNumber(Number(e.target.value))}
+                  min={1}
+                  className="text-sm"
+                />
+              </div>
+              <div>
+                <Label className="text-xs">File Extension</Label>
+                <Select value={bulkExtension} onValueChange={setBulkExtension}>
+                  <SelectTrigger className="text-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value=".jpg">.jpg</SelectItem>
+                    <SelectItem value=".jpeg">.jpeg</SelectItem>
+                    <SelectItem value=".png">.png</SelectItem>
+                    <SelectItem value=".webp">.webp</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-end">
+                <Button
+                  type="button"
+                  onClick={generateBulkImages}
+                  className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black w-full"
+                >
+                  Generate {bulkEndNumber - bulkStartNumber + 1} Images
+                </Button>
+              </div>
+            </div>
+            {bulkBaseUrl && bulkFilePrefix && (
+              <p className="text-xs text-muted-foreground">
+                Preview: {bulkBaseUrl}
+                {bulkFilePrefix}
+                {bulkStartNumber}
+                {bulkExtension}
+              </p>
+            )}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-muted-foreground">
+              {imageUrls.filter((url) => url.trim() !== "").length} image(s) added
+            </span>
+            {imageUrls.length > 1 && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setImageUrls([""])}
+                className="text-red-600 hover:text-red-700"
+              >
+                Clear All
+              </Button>
+            )}
+          </div>
+
           {imageUrls.map((url, index) => (
             <div key={index} className="flex gap-2">
               <Input
