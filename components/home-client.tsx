@@ -60,7 +60,7 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
           <h2>About GJC500</h2>
           <p>
             At GJC500, we pride ourselves on providing you with the best selection of used cars at competitive prices.
-            Browse our online inventory or contact us to set up a test drive. Our friendly staff is here to help!
+            Browse our online inventory or contact us to set up a test drive. We are always here to help!
           </p>
         </div>
       </section>
@@ -155,7 +155,11 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
               </svg>
             </div>
             <h3>Quality Assurance</h3>
-            <p>All our vehicles undergo a comprehensive inspection before being offered for sale.</p>
+            <p>
+              We only purchase cars directly from the previous owners and pay more when a car has been very well looked
+              after. We don't buy from auctions or other traders. All our vehicles go through a thorough PDI (Pre
+              Delivery Inspection) before being collected or sent out.
+            </p>
           </div>
 
           <div className="feature-card">
@@ -175,7 +179,10 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
               </svg>
             </div>
             <h3>Competitive Pricing</h3>
-            <p>We regularly check the market to ensure our prices are fair and competitive.</p>
+            <p>
+              We regularly check the market to ensure our prices are fair and competitive, leaving you with the best
+              value for your money.
+            </p>
           </div>
 
           <div className="feature-card">
@@ -196,8 +203,12 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
             </div>
-            <h3>Expert Support</h3>
-            <p>Our team of automotive experts is always ready to assist with your questions.</p>
+            <h3>Genuine In Person Backup</h3>
+            <p>
+              We understand cars have thousands of moving parts. As a proud member of the Independent Motor Dealers
+              Association (IMDA), whether you're nearby or from afar and encounter any issues with your purchase, we'll
+              get it sorted at a reputable garage near you.
+            </p>
           </div>
         </div>
       </section>

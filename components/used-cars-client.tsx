@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -30,8 +30,6 @@ interface UsedCarsClientProps {
 }
 
 export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
-  const [cars] = useState(initialCars)
-  const [filteredCars, setFilteredCars] = useState(initialCars.filter((car) => !car.sold))
   const [filters, setFilters] = useState({
     make: "all",
     model: "all",
@@ -40,67 +38,68 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
     showSold: false,
   })
 
-  // Extract unique makes and models from cars
-  const makes = Array.from(new Set(cars.map((car) => car.make))).sort()
-  const models =
-    filters.make !== "all"
-      ? Array.from(new Set(cars.filter((car) => car.make === filters.make).map((car) => car.model))).sort()
-      : []
+  const makes = useMemo(() => Array.from(new Set(initialCars.map((car) => car.make))).sort(), [initialCars])
 
-  // Apply filters whenever they change
-  const applyFilters = (newFilters: typeof filters) => {
-    let filtered = cars
+  const models = useMemo(
+    () =>
+      filters.make !== "all"
+        ? Array.from(new Set(initialCars.filter((car) => car.make === filters.make).map((car) => car.model))).sort()
+        : [],
+    [initialCars, filters.make],
+  )
 
-    if (!newFilters.showSold) {
+  const filteredCars = useMemo(() => {
+    let filtered = initialCars
+
+    if (!filters.showSold) {
       filtered = filtered.filter((car) => !car.sold)
     }
 
-    if (newFilters.make !== "all") {
-      filtered = filtered.filter((car) => car.make === newFilters.make)
+    if (filters.make !== "all") {
+      filtered = filtered.filter((car) => car.make === filters.make)
     }
 
-    if (newFilters.model !== "all") {
-      filtered = filtered.filter((car) => car.model === newFilters.model)
+    if (filters.model !== "all") {
+      filtered = filtered.filter((car) => car.model === filters.model)
     }
 
-    filtered = filtered.filter((car) => car.price >= newFilters.priceRange[0] && car.price <= newFilters.priceRange[1])
+    filtered = filtered.filter((car) => car.price >= filters.priceRange[0] && car.price <= filters.priceRange[1])
 
     // Sort
-    if (newFilters.sortBy === "price-low") {
+    if (filters.sortBy === "price-low") {
       filtered = [...filtered].sort((a, b) => a.price - b.price)
-    } else if (newFilters.sortBy === "price-high") {
+    } else if (filters.sortBy === "price-high") {
       filtered = [...filtered].sort((a, b) => b.price - a.price)
-    } else if (newFilters.sortBy === "year-new") {
+    } else if (filters.sortBy === "year-new") {
       filtered = [...filtered].sort((a, b) => b.year - a.year)
-    } else if (newFilters.sortBy === "year-old") {
+    } else if (filters.sortBy === "year-old") {
       filtered = [...filtered].sort((a, b) => a.year - b.year)
-    } else if (newFilters.sortBy === "mileage-low") {
+    } else if (filters.sortBy === "mileage-low") {
       filtered = [...filtered].sort((a, b) => a.mileage - b.mileage)
     }
 
-    setFilteredCars(filtered)
-  }
+    return filtered
+  }, [initialCars, filters])
 
-  const handleFilterChange = (key: string, value: any) => {
-    const newFilters = { ...filters, [key]: value }
-    if (key === "make") {
-      newFilters.model = "all"
-    }
-    setFilters(newFilters)
-    applyFilters(newFilters)
-  }
+  const handleFilterChange = useCallback((key: string, value: any) => {
+    setFilters((prev) => {
+      const newFilters = { ...prev, [key]: value }
+      if (key === "make") {
+        newFilters.model = "all"
+      }
+      return newFilters
+    })
+  }, [])
 
-  const resetFilters = () => {
-    const defaultFilters = {
+  const resetFilters = useCallback(() => {
+    setFilters({
       make: "all",
       model: "all",
       priceRange: [1000, 30000],
       sortBy: "price-low",
       showSold: false,
-    }
-    setFilters(defaultFilters)
-    applyFilters(defaultFilters)
-  }
+    })
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">
@@ -211,16 +210,19 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCars.map((car) => (
+            {filteredCars.map((car, index) => (
               <Card key={car.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
-                <div className="relative h-56 bg-gray-200">
+                <div className="relative h-56 bg-gray-100 overflow-hidden">
                   {car.images && car.images[0] ? (
                     <Image
                       src={car.images[0] || "/placeholder.svg"}
                       alt={car.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={75}
+                      priority={index < 6}
+                      loading={index < 6 ? "eager" : "lazy"}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>

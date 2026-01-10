@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect, useMemo, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -10,7 +10,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight, Share2 } from "lucide-react"
 import ReservationCheckout from "@/components/reservation-checkout"
 import { trackCarView, trackInquiry } from "@/lib/analytics"
-import { useEffect } from "react"
 
 interface Car {
   id: string
@@ -43,29 +42,54 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [isImageLoading, setIsImageLoading] = useState(true)
+  const [preloadedImages, setPreloadedImages] = useState<Set<number>>(new Set([0]))
   const thumbnailContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     trackCarView(car.id, car.title, car.price)
   }, [car.id, car.title, car.price])
 
-  const handlePrevImage = () => {
+  useEffect(() => {
+    const preloadAdjacent = () => {
+      const indicesToPreload = [
+        activeImageIndex,
+        (activeImageIndex + 1) % car.images.length,
+        (activeImageIndex - 1 + car.images.length) % car.images.length,
+        (activeImageIndex + 2) % car.images.length,
+      ]
+
+      indicesToPreload.forEach((index) => {
+        if (!preloadedImages.has(index) && car.images[index]) {
+          const img = new window.Image()
+          img.src = car.images[index]
+          setPreloadedImages((prev) => new Set([...prev, index]))
+        }
+      })
+    }
+
+    preloadAdjacent()
+  }, [activeImageIndex, car.images, preloadedImages])
+
+  const handlePrevImage = useCallback(() => {
+    setIsImageLoading(true)
     setActiveImageIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1))
-  }
+  }, [car.images.length])
 
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
+    setIsImageLoading(true)
     setActiveImageIndex((prev) => (prev === car.images.length - 1 ? 0 : prev + 1))
-  }
+  }, [car.images.length])
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX)
-  }
+  }, [])
 
-  const handleTouchMove = (e: React.TouchEvent) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX)
-  }
+  }, [])
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = useCallback(() => {
     if (!touchStart || !touchEnd) return
 
     const distance = touchStart - touchEnd
@@ -81,22 +105,37 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
 
     setTouchStart(0)
     setTouchEnd(0)
-  }
+  }, [touchStart, touchEnd, handleNextImage, handlePrevImage])
 
-  const handleThumbnailClick = (index: number) => {
-    setActiveImageIndex(index)
-    if (thumbnailContainerRef.current) {
-      const container = thumbnailContainerRef.current
-      const thumbnail = container.children[index] as HTMLElement
-      if (thumbnail) {
-        const containerWidth = container.offsetWidth
-        const thumbnailLeft = thumbnail.offsetLeft
-        const thumbnailWidth = thumbnail.offsetWidth
-        const scrollPosition = thumbnailLeft - containerWidth / 2 + thumbnailWidth / 2
-        container.scrollTo({ left: scrollPosition, behavior: "smooth" })
+  const handleThumbnailClick = useCallback(
+    (index: number) => {
+      if (index !== activeImageIndex) {
+        setIsImageLoading(true)
+        setActiveImageIndex(index)
       }
+      if (thumbnailContainerRef.current) {
+        const container = thumbnailContainerRef.current
+        const thumbnail = container.children[index] as HTMLElement
+        if (thumbnail) {
+          const containerWidth = container.offsetWidth
+          const thumbnailLeft = thumbnail.offsetLeft
+          const thumbnailWidth = thumbnail.offsetWidth
+          const scrollPosition = thumbnailLeft - containerWidth / 2 + thumbnailWidth / 2
+          container.scrollTo({ left: scrollPosition, behavior: "smooth" })
+        }
+      }
+    },
+    [activeImageIndex],
+  )
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrevImage()
+      if (e.key === "ArrowRight") handleNextImage()
     }
-  }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [handlePrevImage, handleNextImage])
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -120,16 +159,17 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
     window.location.href = "/contact"
   }
 
-  const getYouTubeEmbedUrl = (url?: string) => {
-    if (!url) return null
-    const videoId = url.split("youtu.be/")[1]?.split("?")[0] || url.split("v=")[1]?.split("&")[0]
+  const youtubeEmbedUrl = useMemo(() => {
+    if (!car.youtube_url) return null
+    const videoId =
+      car.youtube_url.split("youtu.be/")[1]?.split("?")[0] || car.youtube_url.split("v=")[1]?.split("&")[0]
     return videoId ? `https://www.youtube.com/embed/${videoId}` : null
-  }
+  }, [car.youtube_url])
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        <Link href="/used-cars" className="inline-flex items-center text-gjc-yellow hover:underline mb-6">
+        <Link href="/used-cars" className="inline-flex items-center text-black hover:underline mb-6">
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back to Inventory
         </Link>
@@ -138,55 +178,66 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
           {/* Left Column - Images */}
           <div className="lg:col-span-2">
             <div
-              className="relative h-[500px] bg-gray-200 rounded-lg overflow-hidden mb-4"
+              className="relative h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-4 select-none"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
               {car.images && car.images[activeImageIndex] && (
-                <Image
-                  src={car.images[activeImageIndex] || "/placeholder.svg"}
-                  alt={`${car.title} - Image ${activeImageIndex + 1}`}
-                  fill
-                  className="object-cover transition-opacity duration-300"
-                  priority
-                />
+                <>
+                  {/* Loading skeleton */}
+                  {isImageLoading && <div className="absolute inset-0 bg-gray-200 animate-pulse z-10" />}
+                  <Image
+                    src={car.images[activeImageIndex] || "/placeholder.svg"}
+                    alt={`${car.title} - Image ${activeImageIndex + 1}`}
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
+                    priority={activeImageIndex === 0}
+                    quality={85}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+                    onLoad={() => setIsImageLoading(false)}
+                  />
+                </>
               )}
 
-              {/* Navigation Arrows */}
+              {/* Navigation Arrows - improved styling */}
               <button
                 onClick={handlePrevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all"
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 onClick={handleNextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full transition-all"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
                 aria-label="Next image"
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
 
               {/* Image Counter */}
-              <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+              <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm z-20">
                 {activeImageIndex + 1} / {car.images.length}
               </div>
             </div>
 
-            {/* Thumbnail Gallery */}
             <div
               ref={thumbnailContainerRef}
-              className="flex gap-2 overflow-x-auto scroll-smooth pb-2"
-              style={{ scrollbarWidth: "thin" }}
+              className="flex gap-2 overflow-x-auto scroll-smooth pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+              style={{
+                scrollbarWidth: "thin",
+                WebkitOverflowScrolling: "touch",
+              }}
             >
               {car.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => handleThumbnailClick(index)}
-                  className={`relative flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden transition-all ${
-                    index === activeImageIndex ? "ring-4 ring-gjc-yellow" : "hover:ring-2 hover:ring-gray-400"
+                  className={`relative flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${
+                    index === activeImageIndex
+                      ? "ring-4 ring-gjc-yellow scale-105"
+                      : "hover:ring-2 hover:ring-gray-400 opacity-70 hover:opacity-100"
                   }`}
                 >
                   <Image
@@ -194,6 +245,9 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     alt={`Thumbnail ${index + 1}`}
                     fill
                     className="object-cover"
+                    sizes="96px"
+                    quality={60}
+                    loading={index < 6 ? "eager" : "lazy"}
                   />
                 </button>
               ))}
@@ -280,17 +334,18 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
             </Card>
 
             {/* YouTube Video */}
-            {car.youtube_url && getYouTubeEmbedUrl(car.youtube_url) && (
+            {youtubeEmbedUrl && (
               <Card>
                 <CardContent className="p-4">
                   <h3 className="font-semibold mb-2 text-sm">Watch Our Video</h3>
                   <div className="relative w-full h-48 bg-gray-200 rounded overflow-hidden">
                     <iframe
-                      src={getYouTubeEmbedUrl(car.youtube_url) || ""}
+                      src={youtubeEmbedUrl}
                       title="Car video"
                       className="absolute inset-0 w-full h-full"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
+                      loading="lazy"
                     />
                   </div>
                 </CardContent>
