@@ -178,7 +178,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
           {/* Left Column - Images */}
           <div className="lg:col-span-2">
             <div
-              className="relative h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-4 select-none"
+              className="relative h-[400px] md:h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-4 select-none"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -191,7 +191,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     src={car.images[activeImageIndex] || "/placeholder.svg"}
                     alt={`${car.title} - Image ${activeImageIndex + 1}`}
                     fill
-                    className={`object-cover transition-opacity duration-300 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
+                    className={`object-contain md:object-cover transition-opacity duration-300 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
                     priority={activeImageIndex === 0}
                     quality={85}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
