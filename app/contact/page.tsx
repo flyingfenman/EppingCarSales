@@ -63,11 +63,11 @@ export default function Contact() {
             <h3 className="text-xl font-bold mb-2">Call Us</h3>
             <p className="text-muted-foreground mb-4">Our team is here to help</p>
             <a
-              href="tel:+447376624097"
+              href="tel:+447740080073"
               className="font-medium hover:text-primary"
-              onClick={() => trackPhoneClick("+447376624097")}
+              onClick={() => trackPhoneClick("+447740080073")}
             >
-              +447376624097
+              +447740080073
             </a>
             <a
               href="tel:01205212339"
@@ -121,7 +121,7 @@ export default function Contact() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error!</AlertTitle>
               <AlertDescription>
-                There was a problem sending your message. Please try calling us at +447376624097.
+                There was a problem sending your message. Please try calling us at +447740080073.
               </AlertDescription>
             </Alert>
           )}
