@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
@@ -39,7 +39,7 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
           <Footer />
           <WhatsAppButton
-            phoneNumber="+447740080073"
+            phoneNumber="+447376624097"
             message="Hello! I'm interested in learning more about your cars at GJC500."
           />
         </ThemeProvider>
