@@ -29,6 +29,7 @@ export default function Header() {
               height={60}
               priority
               className="rounded-xl"
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
         </Link>
