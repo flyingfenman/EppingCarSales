@@ -22,8 +22,13 @@ interface HomeClientProps {
 export default function HomeClient({ featuredCars }: HomeClientProps) {
   return (
     <>
-      <section className="hero">
-        <div className="container">
+      <section className="hero relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/gjc-background.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-gray-900/70" />
+        <div className="container relative z-10">
           <div className="hero-logo-container">
             <div className="relative w-[400px] h-[100px] mx-auto">
               <Image
