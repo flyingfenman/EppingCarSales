@@ -27,7 +27,7 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/gjc-background.jpg')" }}
         />
-        <div className="absolute inset-0 bg-gray-900/70" />
+        <div className="absolute inset-0 bg-gray-500/85" />
         <div className="container relative z-10">
           <div className="hero-logo-container">
             <div className="relative w-[400px] h-[100px] mx-auto">
