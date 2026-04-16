@@ -55,16 +55,6 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
         </div>
       </section>
 
-      <section className="intro">
-        <div className="container">
-          <h2>About GJC500</h2>
-          <p>
-            At GJC500, we pride ourselves on providing you with the best selection of used cars at competitive prices.
-            Browse our online inventory or contact us to set up a test drive. We are always here to help!
-          </p>
-        </div>
-      </section>
-
       <section className="main-content">
         <div className="section-title">
           <h2>Featured Vehicles</h2>
@@ -127,6 +117,16 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
             </Link>
           </div>
         )}
+      </section>
+
+      <section className="intro">
+        <div className="container">
+          <h2>About GJC500</h2>
+          <p>
+            At GJC500, we pride ourselves on providing you with the best selection of used cars at competitive prices.
+            Browse our online inventory or contact us to set up a test drive. We are always here to help!
+          </p>
+        </div>
       </section>
 
       <section
