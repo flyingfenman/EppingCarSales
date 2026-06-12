@@ -5,13 +5,13 @@ export default function PrivacyPolicy() {
     <div className="privacy-policy-container">
       <div className="privacy-content">
         <header className="privacy-header">
-          <h1>Privacy Policy for GJC500 Car Dealership</h1>
+          <h1>Privacy Policy for Epping Car Sales</h1>
           <p className="last-updated">Last Updated: July 14, 2025</p>
         </header>
 
         <div className="privacy-intro">
           <p>
-            At GJC500 Car Dealership, we are committed to protecting your privacy. This Privacy Policy explains how we
+            At Epping Car Sales, we are committed to protecting your privacy. This Privacy Policy explains how we
             collect, use, disclose, and safeguard your information when you visit our dealership, use our website, or
             interact with us in any other way.
           </p>
@@ -198,11 +198,11 @@ export default function PrivacyPolicy() {
             </p>
             <div className="contact-info">
               <p>
-                <strong>GJC500 Car Dealership</strong>
+                <strong>Epping Car Sales</strong>
               </p>
-              <p>Blackjack Farm, Dances Bank, Swineshead, Boston, PE203HJ</p>
-              <p>+447740080073</p>
-              <p>henry@gjc500.co.uk</p>
+              <p>YOUR_ADDRESS</p>
+              <p>YOUR_PHONE_NUMBER</p>
+              <p>YOUR_EMAIL_ADDRESS</p>
             </div>
           </section>
         </div>

@@ -46,9 +46,10 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        "gjc-yellow": {
-          DEFAULT: "hsl(var(--gjc-yellow))",
-          hover: "hsl(var(--gjc-yellow-hover))",
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          hover: "hsl(var(--brand-hover))",
+          light: "hsl(var(--brand-light))",
         },
         chart: {
           "1": "hsl(var(--chart-1))",

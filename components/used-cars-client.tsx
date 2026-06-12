@@ -233,7 +233,7 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
                     </div>
                   )}
                   {car.featured && !car.sold && (
-                    <div className="absolute top-3 right-3 bg-gjc-yellow text-black px-4 py-1.5 rounded-md font-semibold text-sm shadow-md">
+                    <div className="absolute top-3 right-3 bg-brand text-white px-4 py-1.5 rounded-md font-semibold text-sm shadow-md">
                       Featured
                     </div>
                   )}
@@ -246,7 +246,7 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
                   <div className="flex items-center justify-between">
                     <p className="text-xl font-bold">£{car.price.toLocaleString()}</p>
                     <Link href={`/used-cars/${car.id}`}>
-                      <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">View Details</Button>
+                      <Button className="bg-brand hover:bg-brand-hover text-white">View Details</Button>
                     </Link>
                   </div>
                 </CardContent>

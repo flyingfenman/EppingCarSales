@@ -1,4 +1,4 @@
-# Customer Tracking Setup Guide for GJC500
+# Customer Tracking Setup Guide for Epping Car Sales
 
 This guide will help you set up comprehensive customer tracking for your car dealership website using Google Analytics 4 and Meta Pixel (Facebook Pixel).
 
@@ -20,12 +20,12 @@ With proper tracking, you'll be able to:
 1. Go to [analytics.google.com](https://analytics.google.com)
 2. Click **Start measuring** or **Admin** (gear icon)
 3. Click **Create Account**
-4. Enter account name: **GJC500**
+4. Enter account name: **Epping Car Sales**
 5. Click **Next**
 
 ### Create a Property
 
-1. Property name: **GJC500 Website**
+1. Property name: **Epping Car Sales Website**
 2. Select timezone: **United Kingdom**
 3. Select currency: **Pound Sterling (£)**
 4. Click **Next**
@@ -43,7 +43,7 @@ With proper tracking, you'll be able to:
 1. After creating the property, you'll see a **Data stream** setup
 2. Click **Web**
 3. Enter website URL: **https://yoursite.com** (or your actual domain)
-4. Stream name: **GJC500 Main Site**
+4. Stream name: **Epping Car Sales Main Site**
 5. Click **Create stream**
 6. **Copy the Measurement ID** - it looks like `G-XXXXXXXXXX`
 
@@ -63,7 +63,7 @@ With proper tracking, you'll be able to:
 2. Click **Connect Data Sources**
 3. Select **Web**
 4. Select **Meta Pixel**
-5. Enter pixel name: **GJC500 Website Pixel**
+5. Enter pixel name: **Epping Car Sales Website Pixel**
 6. Optional: Enter website URL
 7. Click **Continue**
 8. **Copy the Pixel ID** - it's a series of numbers like `123456789012345`
@@ -75,7 +75,7 @@ With proper tracking, you'll be able to:
 ### Option A: Add via Vercel Dashboard (Recommended)
 
 1. Go to [vercel.com/dashboard](https://vercel.com/dashboard)
-2. Select your **GJC500** project
+2. Select your **Epping Car Sales** project
 3. Go to **Settings** → **Environment Variables**
 4. Add the following variables:
 

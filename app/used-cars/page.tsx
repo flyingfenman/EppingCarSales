@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server"
 import UsedCarsClient from "@/components/used-cars-client"
 
 export const metadata = {
-  title: "Used Cars for Sale | GJC500",
+  title: "Used Cars for Sale | Epping Car Sales",
   description: "Browse our selection of quality used cars at competitive prices.",
 }
 

@@ -18,8 +18,8 @@ export async function sendContactEmail(formData: FormData) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "GJC500 Contact Form <onboarding@resend.dev>",
-      to: ["henrythorogood@icloud.com"],
+      from: "Epping Car Sales Contact Form <onboarding@resend.dev>",
+      to: ["YOUR_EMAIL_ADDRESS"],
       replyTo: email,
       subject: `New ${inquiryType || "Contact"} from ${name}`,
       html: `

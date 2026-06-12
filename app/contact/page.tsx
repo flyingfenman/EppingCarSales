@@ -48,7 +48,7 @@ export default function Contact() {
 
   return (
     <div className="container py-12 px-4 md:px-6">
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Contact GJC500</h1>
+      <h1 className="text-3xl font-bold tracking-tight mb-6">Contact Epping Car Sales</h1>
       <p className="text-muted-foreground mb-10 max-w-3xl">
         If you have any questions about our stock, services, or would like to book a test drive, feel free to reach out
         using the form below or by phone.
@@ -63,18 +63,18 @@ export default function Contact() {
             <h3 className="text-xl font-bold mb-2">Call Us</h3>
             <p className="text-muted-foreground mb-4">Our team is here to help</p>
             <a
-              href="tel:+447376624097"
+              href="tel:YOUR_PHONE_NUMBER"
               className="font-medium hover:text-primary"
-              onClick={() => trackPhoneClick("+447376624097")}
+              onClick={() => trackPhoneClick("YOUR_PHONE_NUMBER")}
             >
-              +447376624097
+              YOUR_PHONE_NUMBER
             </a>
             <a
-              href="tel:01205212339"
+              href="tel:YOUR_SECOND_PHONE_NUMBER"
               className="font-medium hover:text-primary"
-              onClick={() => trackPhoneClick("01205212339")}
+              onClick={() => trackPhoneClick("YOUR_SECOND_PHONE_NUMBER")}
             >
-              01205212339
+              YOUR_SECOND_PHONE_NUMBER
             </a>
           </CardContent>
         </Card>
@@ -86,7 +86,7 @@ export default function Contact() {
             </div>
             <h3 className="text-xl font-bold mb-2">Email Us</h3>
             <p className="text-muted-foreground mb-4">We'll respond promptly</p>
-            <p className="font-medium">henry@gjc500.co.uk</p>
+            <p className="font-medium">YOUR_EMAIL_ADDRESS</p>
           </CardContent>
         </Card>
 
@@ -97,7 +97,7 @@ export default function Contact() {
             </div>
             <h3 className="text-xl font-bold mb-2">Visit Us</h3>
             <p className="text-muted-foreground mb-4">Appointment Only</p>
-            <p className="font-medium">Blackjack Farm, Swineshead, PE203HJ</p>
+            <p className="font-medium">YOUR_ADDRESS</p>
           </CardContent>
         </Card>
       </div>
@@ -111,7 +111,7 @@ export default function Contact() {
               <CheckCircle2 className="h-4 w-4" />
               <AlertTitle>Message Sent!</AlertTitle>
               <AlertDescription>
-                Your message has been sent successfully to henry@gjc500.co.uk. We'll get back to you soon!
+                Your message has been sent successfully. We'll get back to you soon!
               </AlertDescription>
             </Alert>
           )}
@@ -121,7 +121,7 @@ export default function Contact() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error!</AlertTitle>
               <AlertDescription>
-                There was a problem sending your message. Please try calling us at +447376624097.
+                There was a problem sending your message. Please try calling us at YOUR_PHONE_NUMBER.
               </AlertDescription>
             </Alert>
           )}
@@ -164,7 +164,7 @@ export default function Contact() {
 
             <Button
               type="submit"
-              className="w-full bg-[#F7B32B] hover:bg-[#E5A420] text-black font-semibold"
+              className="w-full bg-brand hover:bg-brand-hover text-white font-semibold"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Sending..." : "Send Message"}
@@ -210,8 +210,8 @@ export default function Contact() {
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
           <div className="bg-background p-6 rounded-lg max-w-md text-center">
             <h3 className="text-xl font-bold mb-2">Visit Us</h3>
-            <p className="mb-4">Blackjack Farm, Dances Bank, Swineshead, Boston, PE203HJ</p>
-            <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
+            <p className="mb-4">YOUR_ADDRESS</p>
+            <Button className="bg-brand hover:bg-brand-hover text-white">Get Directions</Button>
           </div>
         </div>
         <iframe
@@ -221,7 +221,7 @@ export default function Contact() {
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
-          title="GJC500 Location"
+          title="Epping Car Sales Location"
           className="w-full h-full"
         ></iframe>
       </div>
