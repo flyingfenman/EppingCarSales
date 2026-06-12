@@ -164,7 +164,7 @@ export default function Contact() {
 
             <Button
               type="submit"
-              className="w-full bg-brand hover:bg-brand-hover text-white font-semibold"
+              className="w-full bg-[#F7B32B] hover:bg-[#E5A420] text-black font-semibold"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Sending..." : "Send Message"}
@@ -211,7 +211,7 @@ export default function Contact() {
           <div className="bg-background p-6 rounded-lg max-w-md text-center">
             <h3 className="text-xl font-bold mb-2">Visit Us</h3>
             <p className="mb-4">YOUR_ADDRESS</p>
-            <Button className="bg-brand hover:bg-brand-hover text-white">Get Directions</Button>
+            <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
           </div>
         </div>
         <iframe

@@ -25,7 +25,7 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
       <section className="hero">
         <div className="container">
           <h1>Welcome to Epping Car Sales</h1>
-          <p>Your trusted dealership for quality used cars.</p>
+          <p>Your premier dealership for quality used cars.</p>
           <div className="hero-buttons">
             <Link href="/used-cars" className="btn">
               Browse Inventory

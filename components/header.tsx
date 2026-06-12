@@ -16,12 +16,12 @@ export default function Header() {
   ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f1e2e] text-white py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#333333] text-white py-4">
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <span className="text-2xl font-bold tracking-tight">
-            Epping <span className="text-brand-light">Car Sales</span>
+            Epping <span className="text-yellow-400">Car Sales</span>
           </span>
         </Link>
 
@@ -32,8 +32,8 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`text-lg hover:text-brand-light transition-colors ${
-                    pathname === link.href ? "font-bold text-brand-light" : ""
+                  className={`text-lg hover:text-yellow-400 transition-colors ${
+                    pathname === link.href ? "font-bold text-yellow-400" : ""
                   }`}
                 >
                   {link.label}
@@ -51,14 +51,14 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <nav className="md:hidden bg-[#0f1e2e] py-4">
+        <nav className="md:hidden bg-[#333333] py-4">
           <ul className="flex flex-col items-center gap-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`text-lg hover:text-brand-light transition-colors ${
-                    pathname === link.href ? "font-bold text-brand-light" : ""
+                  className={`text-lg hover:text-yellow-400 transition-colors ${
+                    pathname === link.href ? "font-bold text-yellow-400" : ""
                   }`}
                   onClick={() => setIsOpen(false)}
                 >

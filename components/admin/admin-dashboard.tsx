@@ -77,7 +77,7 @@ export default function AdminDashboard({ initialCars }: { initialCars: Car[] }) 
           </div>
           <div className="flex gap-3">
             <Link href="/admin/dashboard/add">
-              <Button className="bg-brand hover:bg-brand-hover text-white">
+              <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">
                 <Plus className="mr-2 h-4 w-4" />
                 Add New Car
               </Button>
@@ -158,7 +158,7 @@ export default function AdminDashboard({ initialCars }: { initialCars: Car[] }) 
                             SOLD
                           </Badge>
                         )}
-                        {car.featured && <Badge className="bg-brand text-white">FEATURED</Badge>}
+                        {car.featured && <Badge className="bg-gjc-yellow text-black">FEATURED</Badge>}
                       </div>
                       <p className="text-gray-600 text-sm">
                         {car.year} | {car.fuel_type} | {car.transmission} | {car.mileage.toLocaleString()} miles
@@ -175,7 +175,7 @@ export default function AdminDashboard({ initialCars }: { initialCars: Car[] }) 
                         variant="outline"
                         size="sm"
                         onClick={() => handleToggleFeatured(car.id, car.featured)}
-                        className={car.featured ? "bg-brand text-white hover:bg-brand-hover" : ""}
+                        className={car.featured ? "bg-gjc-yellow text-black hover:bg-gjc-yellow-hover" : ""}
                       >
                         <Star className={`h-4 w-4 ${car.featured ? "fill-current" : ""}`} />
                       </Button>

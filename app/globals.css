@@ -34,9 +34,8 @@
 
     --radius: 0.5rem;
 
-    --brand: 211 100% 33%;
-    --brand-hover: 211 100% 27%;
-    --brand-light: 205 90% 65%;
+    --gjc-yellow: 45 100% 50%;
+    --gjc-yellow-hover: 45 100% 45%;
   }
 
   /* Adding smooth scroll and hardware acceleration */
@@ -204,7 +203,7 @@
   }
 
   .btn {
-    @apply px-6 py-3 rounded-md font-medium transition-colors bg-brand text-white hover:bg-brand-hover;
+    @apply px-6 py-3 rounded-md font-medium transition-colors bg-yellow-400 text-black hover:bg-yellow-500;
   }
 
   .btn-outline {
@@ -260,7 +259,7 @@
   }
 
   .badge {
-    @apply absolute top-2 right-2 bg-brand text-white px-3 py-1 rounded-md font-medium;
+    @apply absolute top-2 right-2 bg-yellow-400 text-black px-3 py-1 rounded-md font-medium;
   }
 
   /* Fixed sold badge styling to work on hover of card, not just badge itself */
@@ -304,7 +303,7 @@
   }
 
   .feature-icon svg {
-    @apply w-12 h-12 text-brand;
+    @apply w-12 h-12 text-yellow-400;
   }
 
   .feature-card h3 {
@@ -357,7 +356,7 @@
   .privacy-intro {
     @apply mb-8 p-6 rounded-lg;
     background: hsl(var(--muted));
-    border-left: 4px solid hsl(var(--brand));
+    border-left: 4px solid hsl(var(--gjc-yellow));
   }
 
   .privacy-intro p {
@@ -374,7 +373,7 @@
 
   .privacy-sections h2 {
     @apply text-xl md:text-2xl font-bold mb-4 text-foreground pl-4;
-    border-left: 4px solid hsl(var(--brand));
+    border-left: 4px solid hsl(var(--gjc-yellow));
   }
 
   .privacy-sections p {
@@ -396,7 +395,7 @@
   .contact-info {
     @apply p-6 rounded-lg;
     background: hsl(var(--muted));
-    border-left: 4px solid hsl(var(--brand));
+    border-left: 4px solid hsl(var(--gjc-yellow));
   }
 
   .contact-info p {
@@ -414,12 +413,12 @@
 
   .back-link {
     @apply inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors;
-    background: hsl(var(--brand));
-    color: white;
+    background: hsl(var(--gjc-yellow));
+    color: black;
   }
 
   .back-link:hover {
-    background: hsl(var(--brand-hover));
+    background: hsl(var(--gjc-yellow-hover));
   }
 
   @media (max-width: 768px) {

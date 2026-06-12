@@ -270,7 +270,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                   onClick={() => handleThumbnailClick(index)}
                   className={`relative flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${
                     index === activeImageIndex
-                      ? "ring-4 ring-brand scale-105"
+                      ? "ring-4 ring-gjc-yellow scale-105"
                       : "hover:ring-2 hover:ring-gray-400 opacity-70 hover:opacity-100"
                   }`}
                 >
@@ -299,7 +299,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {car.features.map((feature, index) => (
                         <li key={index} className="flex items-center text-gray-700">
-                          <span className="text-brand mr-2">✓</span>
+                          <span className="text-gjc-yellow mr-2">✓</span>
                           {feature}
                         </li>
                       ))}
@@ -315,7 +315,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
             <Card>
               <CardContent className="p-6">
                 <h1 className="text-3xl font-bold mb-2">{car.title}</h1>
-                <p className="text-4xl font-bold text-brand mb-6">£{car.price.toLocaleString()}</p>
+                <p className="text-4xl font-bold text-gjc-yellow mb-6">£{car.price.toLocaleString()}</p>
 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between border-b pb-2">
@@ -356,7 +356,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
 
                 <div className="space-y-3">
                   <ReservationCheckout carId={car.id} carTitle={car.title} carPrice={car.price} />
-                  <Button onClick={handleInquiry} className="w-full bg-brand hover:bg-brand-hover text-white">
+                  <Button onClick={handleInquiry} className="w-full bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">
                     Inquire About This Car
                   </Button>
                   <Button variant="outline" className="w-full bg-transparent" onClick={handleShare}>

@@ -298,7 +298,7 @@ export function CarForm({ car, mode }: CarFormProps) {
                 <Button
                   type="button"
                   onClick={generateBulkImages}
-                  className="bg-brand hover:bg-brand-hover text-white w-full"
+                  className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black w-full"
                 >
                   Generate {bulkEndNumber - bulkStartNumber + 1} Images
                 </Button>
@@ -401,7 +401,7 @@ export function CarForm({ car, mode }: CarFormProps) {
       </Card>
 
       <div className="flex gap-4">
-        <Button type="submit" disabled={loading} className="bg-brand hover:bg-brand-hover text-white">
+        <Button type="submit" disabled={loading} className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">
           {loading ? "Saving..." : mode === "create" ? "Create Car" : "Update Car"}
         </Button>
         <Button type="button" variant="outline" onClick={() => router.back()}>
