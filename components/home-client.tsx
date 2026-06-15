@@ -24,31 +24,13 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
     <>
       <section className="hero">
         <div className="container">
-          <div className="hero-logo-container">
-            <div className="relative w-[400px] h-[100px] mx-auto">
-              <Image
-                src="https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/gjc500.jpg"
-                alt="GJC500 Dealership - Quality Used Cars"
-                fill
-                sizes="400px"
-                style={{
-                  objectFit: "cover",
-                  objectPosition: "center",
-                  transform: "scale(1)",
-                  mixBlendMode: "multiply",
-                }}
-                className="rounded-xl"
-                priority
-              />
-            </div>
-          </div>
-          <h1>Welcome to GJC500</h1>
+          <h1>Welcome to Epping Car Sales</h1>
           <p>Your premier dealership for quality used cars.</p>
           <div className="hero-buttons">
             <Link href="/used-cars" className="btn">
               Browse Inventory
             </Link>
-            <a href="https://www.youtube.com/@gjc500" target="_blank" rel="noopener noreferrer" className="btn btn-red">
+            <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
               Watch Our YouTube Channel
             </a>
           </div>
@@ -121,10 +103,10 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
 
       <section className="intro">
         <div className="container">
-          <h2>About GJC500</h2>
+          <h2>About Epping Car Sales</h2>
           <p>
-            At GJC500, we pride ourselves on providing you with the best selection of used cars at competitive prices.
-            Browse our online inventory or contact us to set up a test drive. We are always here to help!
+            At Epping Car Sales, we pride ourselves on providing you with the best selection of used cars at competitive
+            prices. Browse our online inventory or contact us to set up a test drive. We are always here to help!
           </p>
         </div>
       </section>
@@ -134,7 +116,7 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
         style={{ backgroundColor: "#f5f5f5", paddingTop: "4rem", paddingBottom: "4rem" }}
       >
         <div className="section-title">
-          <h2>Why Choose GJC500?</h2>
+          <h2>Why Choose Epping Car Sales?</h2>
         </div>
 
         <div className="features">

@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
@@ -21,17 +20,9 @@ export default function Header() {
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <div className="rounded-xl overflow-hidden bg-white">
-            <Image
-              src="https://pub-f9184b8b10a6492da887a1c37e229913.r2.dev/Screenshot%202025-05-10%20at%2012.23.11.png"
-              alt="GJC500 - Premier Car Dealership Logo"
-              width={180}
-              height={60}
-              priority
-              className="rounded-xl"
-              style={{ width: "auto", height: "auto" }}
-            />
-          </div>
+          <span className="text-2xl font-bold tracking-tight">
+            Epping <span className="text-yellow-400">Car Sales</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

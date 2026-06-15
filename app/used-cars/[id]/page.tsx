@@ -801,13 +801,13 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
   if (!car) {
     return {
-      title: "Car Not Found | GJC500",
+      title: "Car Not Found | Epping Car Sales",
     }
   }
 
   return {
-    title: `${car.title} | GJC500`,
-    description: car.description || `${car.year} ${car.make} ${car.model} for sale at GJC500`,
+    title: `${car.title} | Epping Car Sales`,
+    description: car.description || `${car.year} ${car.make} ${car.model} for sale at Epping Car Sales`,
   }
 }
 

@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-content">
-        <p>&copy; 2025 GJC500. All rights reserved.</p>
+        <p>&copy; 2025 Epping Car Sales. All rights reserved.</p>
         <div className="footer-links">
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/admin">Admin</Link>

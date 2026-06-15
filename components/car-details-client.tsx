@@ -176,7 +176,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
       try {
         await navigator.share({
           title: car.title,
-          text: `Check out this ${car.year} ${car.title} at GJC500`,
+          text: `Check out this ${car.year} ${car.title} at Epping Car Sales`,
           url: window.location.href,
         })
       } catch (err) {
