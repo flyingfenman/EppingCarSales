@@ -24,10 +24,10 @@ export default function Header() {
           <Image
             src="/images/logo.png"
             alt="Epping Car Sales"
-            width={220}
-            height={74}
+            width={440}
+            height={148}
             priority
-            style={{ width: "auto", height: "70px" }}
+            style={{ width: "auto", height: "140px" }}
           />
         </Link>
 
