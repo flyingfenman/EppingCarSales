@@ -63,18 +63,11 @@ export default function Contact() {
             <h3 className="text-xl font-bold mb-2">Call Us</h3>
             <p className="text-muted-foreground mb-4">Our team is here to help</p>
             <a
-              href="tel:YOUR_PHONE_NUMBER"
+              href="tel:+441992367909"
               className="font-medium hover:text-primary"
-              onClick={() => trackPhoneClick("YOUR_PHONE_NUMBER")}
+              onClick={() => trackPhoneClick("+441992367909")}
             >
-              YOUR_PHONE_NUMBER
-            </a>
-            <a
-              href="tel:YOUR_SECOND_PHONE_NUMBER"
-              className="font-medium hover:text-primary"
-              onClick={() => trackPhoneClick("YOUR_SECOND_PHONE_NUMBER")}
-            >
-              YOUR_SECOND_PHONE_NUMBER
+              +44 1992 367909
             </a>
           </CardContent>
         </Card>
@@ -121,7 +114,7 @@ export default function Contact() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error!</AlertTitle>
               <AlertDescription>
-                There was a problem sending your message. Please try calling us at YOUR_PHONE_NUMBER.
+                There was a problem sending your message. Please try calling us at +44 1992 367909.
               </AlertDescription>
             </Alert>
           )}
