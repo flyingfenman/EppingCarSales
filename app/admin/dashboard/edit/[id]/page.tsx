@@ -4,9 +4,10 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
-export default async function EditCarPage({ params }: { params: { id: string } }) {
+export default async function EditCarPage({ params }: { params: Promise<{ id: string }> }) {
   try {
-    const car = await getCar(params.id)
+    const { id } = await params
+    const car = await getCar(id)
 
     return (
       <div className="min-h-screen bg-gray-50 p-6">
@@ -16,7 +17,7 @@ export default async function EditCarPage({ params }: { params: { id: string } }
             Back to Dashboard
           </Link>
           <h1 className="text-3xl font-bold mb-6">Edit Car: {car.title}</h1>
-          <CarForm car={car} mode="edit" />
+          <CarForm car={car} mode="edit" key={id} />
         </div>
       </div>
     )
