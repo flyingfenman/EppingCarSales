@@ -201,7 +201,7 @@ export default function PrivacyPolicy() {
                 <strong>Epping Car Sales</strong>
               </p>
               <p>YOUR_ADDRESS</p>
-              <p>YOUR_PHONE_NUMBER</p>
+              <p>+44 1992 367909</p>
               <p>YOUR_EMAIL_ADDRESS</p>
             </div>
           </section>

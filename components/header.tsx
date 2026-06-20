@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
@@ -16,13 +17,18 @@ export default function Header() {
   ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#333333] text-white py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#545454] text-white py-2">
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <span className="text-2xl font-bold tracking-tight">
-            Epping <span className="text-yellow-400">Car Sales</span>
-          </span>
+          <Image
+            src="/images/logo.png"
+            alt="Epping Car Sales"
+            width={820}
+            height={200}
+            priority
+            style={{ width: "auto", height: "80px" }}
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -51,7 +57,7 @@ export default function Header() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <nav className="md:hidden bg-[#333333] py-4">
+        <nav className="md:hidden bg-[#545454] py-4">
           <ul className="flex flex-col items-center gap-4">
             {navLinks.map((link) => (
               <li key={link.href}>

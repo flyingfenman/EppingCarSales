@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 
 export type CarFormData = {
   title: string
@@ -26,7 +27,7 @@ export type CarFormData = {
 }
 
 export async function createCar(data: CarFormData) {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { data: car, error } = await supabase.from("cars").insert([data]).select().single()
 
@@ -41,7 +42,7 @@ export async function createCar(data: CarFormData) {
 }
 
 export async function updateCar(id: string, data: Partial<CarFormData>) {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { data: car, error } = await supabase.from("cars").update(data).eq("id", id).select().single()
 
@@ -57,7 +58,7 @@ export async function updateCar(id: string, data: Partial<CarFormData>) {
 }
 
 export async function deleteCar(id: string) {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
 
   const { error } = await supabase.from("cars").delete().eq("id", id)
 
