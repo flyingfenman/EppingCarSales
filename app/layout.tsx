@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   description:
     "Epping Car Sales - Trusted dealership for quality used cars at competitive prices. Browse our inventory or schedule a test drive today!",
   generator: "v0.dev",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/site.webmanifest",
 }
 
 export default function RootLayout({
