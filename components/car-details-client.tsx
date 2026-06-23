@@ -43,42 +43,25 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
   const [isImageLoading, setIsImageLoading] = useState(true)
-  const [preloadedImages, setPreloadedImages] = useState<Set<number>>(new Set([0]))
   const thumbnailContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     trackCarView(car.id, car.title, car.price)
   }, [car.id, car.title, car.price])
 
-  // Preload ALL images on mount for instant swiping
-  useEffect(() => {
-    const preloadAllImages = () => {
-      car.images.forEach((imageUrl, index) => {
-        if (!preloadedImages.has(index) && imageUrl) {
-          const img = new window.Image()
-          img.crossOrigin = "anonymous"
-          img.src = imageUrl
-          setPreloadedImages((prev) => new Set([...prev, index]))
-        }
-      })
-    }
-
-    preloadAllImages()
-  }, [car.images]) // Only run once on mount
-
-  // Additionally preload next/prev with high priority when active image changes
+  // Only preload the next and previous images — not the entire gallery
   useEffect(() => {
     const nextIndex = (activeImageIndex + 1) % car.images.length
     const prevIndex = (activeImageIndex - 1 + car.images.length) % car.images.length
-    
-    // Create link preload elements for immediate next/prev images
+
     const preloadLinks: HTMLLinkElement[] = []
-    
+
     ;[nextIndex, prevIndex].forEach((index) => {
       if (car.images[index]) {
-        const existingLink = document.querySelector(`link[href="${car.images[index]}"]`)
-        if (!existingLink) {
+        const id = `preload-img-${index}`
+        if (!document.getElementById(id)) {
           const link = document.createElement("link")
+          link.id = id
           link.rel = "preload"
           link.as = "image"
           link.href = car.images[index]
@@ -95,22 +78,14 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
   }, [activeImageIndex, car.images])
 
   const handlePrevImage = useCallback(() => {
-    // Only show loading if image isn't preloaded yet
-    const prevIndex = activeImageIndex === 0 ? car.images.length - 1 : activeImageIndex - 1
-    if (!preloadedImages.has(prevIndex)) {
-      setIsImageLoading(true)
-    }
-    setActiveImageIndex(prevIndex)
-  }, [car.images.length, activeImageIndex, preloadedImages])
+    setIsImageLoading(true)
+    setActiveImageIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1))
+  }, [car.images.length])
 
   const handleNextImage = useCallback(() => {
-    // Only show loading if image isn't preloaded yet
-    const nextIndex = activeImageIndex === car.images.length - 1 ? 0 : activeImageIndex + 1
-    if (!preloadedImages.has(nextIndex)) {
-      setIsImageLoading(true)
-    }
-    setActiveImageIndex(nextIndex)
-  }, [car.images.length, activeImageIndex, preloadedImages])
+    setIsImageLoading(true)
+    setActiveImageIndex((prev) => (prev === car.images.length - 1 ? 0 : prev + 1))
+  }, [car.images.length])
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX)
@@ -141,10 +116,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
   const handleThumbnailClick = useCallback(
     (index: number) => {
       if (index !== activeImageIndex) {
-        // Only show loading if image isn't preloaded yet
-        if (!preloadedImages.has(index)) {
-          setIsImageLoading(true)
-        }
+        setIsImageLoading(true)
         setActiveImageIndex(index)
       }
       if (thumbnailContainerRef.current) {
@@ -225,10 +197,12 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     src={car.images[activeImageIndex] || "/placeholder.svg"}
                     alt={`${car.title} - Image ${activeImageIndex + 1}`}
                     fill
-                    className={`object-contain md:object-cover transition-opacity duration-300 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
+                    className={`object-contain md:object-cover transition-opacity duration-200 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
                     priority={activeImageIndex === 0}
-                    quality={85}
+                    quality={70}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQQG/8QAIRAAAgICAQUAAAAAAAAAAAAAAQIDEQQSITFBUWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Az9LqKtFQsWt1xWN+Vy5xl3+sXbf3LRRRBn//2Q=="
                     onLoad={() => setIsImageLoading(false)}
                   />
                 </>
@@ -280,8 +254,8 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     fill
                     className="object-cover"
                     sizes="96px"
-                    quality={60}
-                    loading={index < 6 ? "eager" : "lazy"}
+                    quality={40}
+                    loading={index < 3 ? "eager" : "lazy"}
                   />
                 </button>
               ))}
