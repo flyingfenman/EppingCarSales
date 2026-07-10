@@ -131,7 +131,7 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
         }
       }
     },
-    [activeImageIndex, preloadedImages],
+    [activeImageIndex],
   )
 
   useEffect(() => {
