@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight, Share2 } from "lucide-react"
 import ReservationCheckout from "@/components/reservation-checkout"
 import { trackCarView, trackInquiry } from "@/lib/analytics"
+import FinanceCalculator from "@/components/finance-calculator"
 
 interface Car {
   id: string
@@ -360,6 +361,16 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
               </Card>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Finance calculator */}
+      <div className="w-full" style={{ backgroundColor: "#f1f5f9" }}>
+        <div className="max-w-4xl mx-auto px-4 py-10 md:py-14">
+          <p className="text-xl font-bold mb-6" style={{ color: "#0f2044" }}>
+            Finance this {car.title}
+          </p>
+          <FinanceCalculator initialPrice={car.price} vehicleName={car.title} />
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import FinanceCalculator from "@/components/finance-calculator"
 
 interface Car {
   id: string
@@ -34,6 +35,13 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
               Watch Our YouTube Channel
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Finance calculator — full-width section directly under hero */}
+      <section className="w-full" style={{ backgroundColor: "#f1f5f9" }}>
+        <div className="max-w-4xl mx-auto px-4 py-10 md:py-14">
+          <FinanceCalculator initialPrice={10000} />
         </div>
       </section>
 
