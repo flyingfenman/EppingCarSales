@@ -23,31 +23,6 @@ interface HomeClientProps {
 export default function HomeClient({ featuredCars }: HomeClientProps) {
   return (
     <>
-      <section className="hero" style={{ textAlign: "left" }}>
-        <div className="container">
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-            {/* Left: hero copy */}
-            <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome to Epping Car Sales</h1>
-              <p className="text-xl text-gray-600 mb-8">Your premier dealership for quality used cars.</p>
-              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                <Link href="/used-cars" className="btn">
-                  Browse Inventory
-                </Link>
-                <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
-                  Watch Our YouTube Channel
-                </a>
-              </div>
-            </div>
-
-            {/* Right: finance calculator */}
-            <div className="flex-1 w-full">
-              <FinanceCalculator initialPrice={10000} />
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="main-content">
         <div className="section-title">
           <h2>Featured Vehicles</h2>
@@ -110,6 +85,29 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
             </Link>
           </div>
         )}
+      </section>
+
+      {/* Compact hero + finance calculator strip */}
+      <section className="hero" style={{ padding: "2rem 0" }}>
+        <div className="container">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            <div className="flex-1 text-center lg:text-left">
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">Welcome to Epping Car Sales</h1>
+              <p className="text-base text-gray-600 mb-5">Your premier dealership for quality used cars.</p>
+              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
+                <Link href="/used-cars" className="btn">
+                  Browse Inventory
+                </Link>
+                <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
+                  Watch Our YouTube Channel
+                </a>
+              </div>
+            </div>
+            <div className="flex-1 w-full">
+              <FinanceCalculator initialPrice={10000} />
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="intro">
