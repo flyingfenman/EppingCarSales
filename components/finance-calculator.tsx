@@ -373,19 +373,9 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
         This calculator is for illustration only and is not a quote or an offer of finance. Finance is subject to status and affordability checks. You must be 18 or over and a UK resident. Terms and conditions apply.
       </p>
 
-      {/* Representative example — Section 5 */}
-      {/* REPLACE WITH LENDER APPROVED FIGURES BEFORE GOING LIVE */}
-      <div className="mt-5 rounded-xl border-2 border-gray-300 bg-white p-5">
-        <p className="font-bold text-sm mb-2" style={{ color: BRAND_NAVY }}>Representative example</p>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          Cash price £10,000, deposit £1,000, amount of credit £9,000, 48 monthly payments of £233.90, total amount payable £12,227.20, total charge for credit £2,227.20, rate of interest 11.9% a year fixed, 11.9% APR representative.
-        </p>
-      </div>
-
-      {/* Regulatory footer — Section 6 */}
-      {/* CONFIRM EXACT WORDING WITH OCTANE COMPLIANCE BEFORE GOING LIVE */}
-      <div className="mt-5 text-xs text-gray-500 leading-relaxed border-t border-gray-200 pt-4">
-        Epping Car Sales is a trading name of HJT Motors Limited, registered in England and Wales, company number [COMPANY NUMBER]. HJT Motors Limited is authorised and regulated by the Financial Conduct Authority, firm reference number 1054225. We are a credit broker, not a lender. We can introduce you to Octane Finance, a credit broker with access to a panel of lenders who may be able to provide finance for your purchase. If you take out finance following our introduction, we will typically receive a commission from the lender or broker, either a fixed fee or a fixed percentage of the amount you borrow. Different lenders may pay different amounts of commission. You can ask us at any time for details of the commission we expect to receive.
+      {/* Regulatory footer */}
+      <div className="mt-4 text-xs text-gray-500 leading-relaxed border-t border-gray-200 pt-4">
+        Epping Car Sales is authorised and regulated by the Financial Conduct Authority, firm reference number 1054225. We are a credit broker, not a lender. We can introduce you to a panel of lenders who may be able to provide finance for your purchase. If you take out finance following our introduction, we will typically receive a commission from the lender or broker. You can ask us at any time for details of the commission we expect to receive.
       </div>
     </div>
   )
