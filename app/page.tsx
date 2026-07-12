@@ -1,6 +1,21 @@
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import HomeClient from "@/components/home-client"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Epping Car Sales | Used Cars in Epping, Essex",
+  description:
+    "Welcome to Epping Car Sales — your local used car dealership in Epping, Essex. Browse quality second-hand cars at great prices and reserve online today.",
+  alternates: {
+    canonical: "https://www.eppingcarsales.com",
+  },
+  openGraph: {
+    url: "https://www.eppingcarsales.com",
+    title: "Epping Car Sales | Used Cars in Epping, Essex",
+    description: "Your local used car dealership in Epping, Essex. Quality second-hand cars at great prices.",
+  },
+}
 
 async function getFeaturedCars() {
   const cookieStore = await cookies()

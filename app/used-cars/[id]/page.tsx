@@ -800,14 +800,35 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const { data: car } = await supabase.from("cars").select("*").eq("id", params.id).single()
 
   if (!car) {
-    return {
-      title: "Car Not Found | Epping Car Sales",
-    }
+    return { title: "Car Not Found | Epping Car Sales" }
   }
 
+  const title = `${car.title} for Sale | Epping Car Sales`
+  const description =
+    car.description
+      ? car.description.slice(0, 160)
+      : `${car.year} ${car.title} for sale at Epping Car Sales, Essex. ${car.mileage ? car.mileage + " miles." : ""} £${car.price?.toLocaleString()}.`
+  const url = `https://www.eppingcarsales.com/used-cars/${car.id}`
+  const image = car.images?.[0] || car.image || "/web-app-manifest-512x512.png"
+
   return {
-    title: `${car.title} | Epping Car Sales`,
-    description: car.description || `${car.year} ${car.make} ${car.model} for sale at Epping Car Sales`,
+    title,
+    description,
+    keywords: [
+      car.title,
+      `${car.make} for sale`,
+      `${car.make} ${car.model}`,
+      `used ${car.make} Essex`,
+      "used cars Epping",
+      "Epping Car Sales",
+    ],
+    alternates: { canonical: url },
+    openGraph: {
+      url,
+      title,
+      description,
+      images: [{ url: image, alt: car.title }],
+    },
   }
 }
 

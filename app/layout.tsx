@@ -13,11 +13,59 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] })
 
+const BASE_URL = "https://www.eppingcarsales.com"
+
 export const metadata: Metadata = {
-  title: "Epping Car Sales - Quality Used Cars",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Epping Car Sales | Used Cars in Epping, Essex",
+    template: "%s | Epping Car Sales",
+  },
   description:
-    "Epping Car Sales - Trusted dealership for quality used cars at competitive prices. Browse our inventory or schedule a test drive today!",
-  generator: "v0.dev",
+    "Epping Car Sales — your local used car dealership in Epping, Essex. Quality second-hand cars at great prices. Browse our stock, reserve online or visit us today.",
+  keywords: [
+    "Epping Car Sales",
+    "used cars Epping",
+    "second hand cars Epping",
+    "used cars Essex",
+    "car dealership Epping",
+    "cheap used cars Essex",
+    "buy used car Epping",
+  ],
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: BASE_URL,
+    siteName: "Epping Car Sales",
+    title: "Epping Car Sales | Used Cars in Epping, Essex",
+    description:
+      "Your local used car dealership in Epping, Essex. Quality second-hand cars at great prices. Browse our stock online.",
+    images: [
+      {
+        url: "/web-app-manifest-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "Epping Car Sales",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Epping Car Sales | Used Cars in Epping, Essex",
+    description: "Your local used car dealership in Epping, Essex. Quality second-hand cars at great prices.",
+    images: ["/web-app-manifest-512x512.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -36,6 +84,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "AutoDealer",
+              name: "Epping Car Sales",
+              url: "https://www.eppingcarsales.com",
+              logo: "https://www.eppingcarsales.com/web-app-manifest-512x512.png",
+              image: "https://www.eppingcarsales.com/web-app-manifest-512x512.png",
+              description: "Quality used car dealership in Epping, Essex.",
+              telephone: "+441992367909",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Epping",
+                addressRegion: "Essex",
+                addressCountry: "GB",
+              },
+              openingHoursSpecification: [
+                { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "09:00", closes: "18:00" },
+                { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "17:00" },
+              ],
+              sameAs: [],
+            }),
+          }}
+        />
+      </head>
       <body className={inter.className}>
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
