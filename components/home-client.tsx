@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import FinanceCalculator from "@/components/finance-calculator"
 
 interface Car {
   id: string
@@ -22,6 +23,7 @@ interface HomeClientProps {
 export default function HomeClient({ featuredCars }: HomeClientProps) {
   return (
     <>
+      {/* Hero — restored to top */}
       <section className="hero">
         <div className="container">
           <h1>Welcome to Epping Car Sales</h1>
@@ -101,13 +103,23 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
         )}
       </section>
 
+      {/* About + Finance Calculator side by side */}
       <section className="intro">
         <div className="container">
-          <h2>About Epping Car Sales</h2>
-          <p>
-            At Epping Car Sales, we pride ourselves on providing you with the best selection of used cars at competitive
-            prices. Browse our online inventory or contact us to set up a test drive. We are always here to help!
-          </p>
+          <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
+            {/* Left: about text */}
+            <div className="lg:w-2/5">
+              <h2 className="mb-3">About Epping Car Sales</h2>
+              <p>
+                At Epping Car Sales, we pride ourselves on providing you with the best selection of used cars at competitive
+                prices. Browse our online inventory or contact us to set up a test drive. We are always here to help!
+              </p>
+            </div>
+            {/* Right: compact finance calculator */}
+            <div className="lg:w-3/5 w-full">
+              <FinanceCalculator initialPrice={10000} compact />
+            </div>
+          </div>
         </div>
       </section>
 
