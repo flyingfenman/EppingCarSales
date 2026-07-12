@@ -23,25 +23,28 @@ interface HomeClientProps {
 export default function HomeClient({ featuredCars }: HomeClientProps) {
   return (
     <>
-      <section className="hero">
+      <section className="hero" style={{ textAlign: "left" }}>
         <div className="container">
-          <h1>Welcome to Epping Car Sales</h1>
-          <p>Your premier dealership for quality used cars.</p>
-          <div className="hero-buttons">
-            <Link href="/used-cars" className="btn">
-              Browse Inventory
-            </Link>
-            <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
-              Watch Our YouTube Channel
-            </a>
-          </div>
-        </div>
-      </section>
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+            {/* Left: hero copy */}
+            <div className="flex-1 text-center lg:text-left">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome to Epping Car Sales</h1>
+              <p className="text-xl text-gray-600 mb-8">Your premier dealership for quality used cars.</p>
+              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                <Link href="/used-cars" className="btn">
+                  Browse Inventory
+                </Link>
+                <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
+                  Watch Our YouTube Channel
+                </a>
+              </div>
+            </div>
 
-      {/* Finance calculator — full-width section directly under hero */}
-      <section className="w-full" style={{ backgroundColor: "#f1f5f9" }}>
-        <div className="max-w-4xl mx-auto px-4 py-10 md:py-14">
-          <FinanceCalculator initialPrice={10000} />
+            {/* Right: finance calculator */}
+            <div className="flex-1 w-full">
+              <FinanceCalculator initialPrice={10000} />
+            </div>
+          </div>
         </div>
       </section>
 
