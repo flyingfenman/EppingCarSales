@@ -331,7 +331,6 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
 
                 <div className="space-y-3">
                   <ReservationCheckout carId={car.id} carTitle={car.title} carPrice={car.price} />
-                  <FinanceCalculator initialPrice={car.price} vehicleName={car.title} compact />
                   <Button onClick={handleInquiry} className="w-full bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">
                     Inquire About This Car
                   </Button>
@@ -365,7 +364,13 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
         </div>
       </div>
 
-
+      {/* Finance calculator — full width below the main content */}
+      <div className="border-t border-gray-200 bg-white mt-2">
+        <div className="container mx-auto px-4 py-8">
+          <h2 className="text-2xl font-bold mb-6">Finance this {car.title}</h2>
+          <FinanceCalculator initialPrice={car.price} vehicleName={car.title} />
+        </div>
+      </div>
     </div>
   )
 }
