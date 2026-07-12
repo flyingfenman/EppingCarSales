@@ -6,7 +6,8 @@ import { ChevronRight, Minus, Plus } from "lucide-react"
 
 // ── Brand constants ────────────────────────────────────────────────────────────
 const BRAND_NAVY = "#0f2044"
-const BRAND_ACCENT = "#e8001d" // red – used for payment figure, active pills, Apply Now
+const BRAND_ACCENT = "#e8001d" // red – payment figure display only
+const BRAND_YELLOW = "#f5c518"  // yellow – buttons, active pills, Apply Now
 
 // ── Finance constants ──────────────────────────────────────────────────────────
 const APR = 0.119
@@ -186,7 +187,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                   className="flex-1 py-2 px-3 rounded-lg text-sm font-semibold transition-all"
                   style={
                     tab === t
-                      ? { backgroundColor: BRAND_ACCENT, color: "#fff" }
+                      ? { backgroundColor: BRAND_YELLOW, color: "#000" }
                       : { backgroundColor: "transparent", color: BRAND_NAVY }
                   }
                 >
@@ -229,7 +230,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                         className="flex-1 py-2.5 rounded-lg text-sm font-semibold border transition-all"
                         style={
                           term === t
-                            ? { backgroundColor: BRAND_ACCENT, color: "#fff", borderColor: BRAND_ACCENT }
+                            ? { backgroundColor: BRAND_YELLOW, color: "#000", borderColor: BRAND_YELLOW }
                             : { backgroundColor: "white", color: BRAND_NAVY, borderColor: "#d1d5db" }
                         }
                       >
@@ -272,7 +273,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                         className="flex-1 py-2.5 rounded-lg text-sm font-semibold border transition-all"
                         style={
                           affordTerm === t
-                            ? { backgroundColor: BRAND_ACCENT, color: "#fff", borderColor: BRAND_ACCENT }
+                            ? { backgroundColor: BRAND_YELLOW, color: "#000", borderColor: BRAND_YELLOW }
                             : { backgroundColor: "white", color: BRAND_NAVY, borderColor: "#d1d5db" }
                         }
                       >
@@ -316,8 +317,8 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                     href={APPLY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-white text-sm transition-opacity hover:opacity-90 mb-2"
-                    style={{ backgroundColor: BRAND_ACCENT }}
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-black text-sm transition-opacity hover:opacity-90 mb-2"
+                    style={{ backgroundColor: BRAND_YELLOW }}
                   >
                     Apply Now <ChevronRight size={18} />
                   </a>
@@ -356,8 +357,8 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                   href={APPLY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-white text-sm transition-opacity hover:opacity-90 mb-2"
-                  style={{ backgroundColor: BRAND_ACCENT }}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-black text-sm transition-opacity hover:opacity-90 mb-2"
+                  style={{ backgroundColor: BRAND_YELLOW }}
                 >
                   Apply Now <ChevronRight size={18} />
                 </a>
