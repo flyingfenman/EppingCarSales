@@ -174,7 +174,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
           </div>
         )}
 
-        <div className={`${compact ? "p-4" : "p-5 md:p-6"} flex flex-col md:flex-row gap-4`}>
+        <div className={`${compact ? "p-5" : "p-5 md:p-6"} flex flex-col md:flex-row gap-5`}>
           {/* ── Left: inputs ── */}
           <div className="flex-1 min-w-0">
             {/* Tabs */}
@@ -217,7 +217,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                   note={depositCapped ? `Deposit capped at 50% of vehicle price (${gbp.format(maxDeposit)})` : undefined}
                   compact={compact}
                 />
-                <div className={compact ? "mb-2" : "mb-5"}>
+                <div className={compact ? "mb-4" : "mb-5"}>
                   <label className="block text-sm font-semibold mb-1.5" style={{ color: BRAND_NAVY }}>
                     Finance Term (Months)
                   </label>
@@ -260,7 +260,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
                   max={50000}
                   compact={compact}
                 />
-                <div className={compact ? "mb-2" : "mb-5"}>
+                <div className={compact ? "mb-4" : "mb-5"}>
                   <label className="block text-sm font-semibold mb-1.5" style={{ color: BRAND_NAVY }}>
                     Finance Term (Months)
                   </label>
@@ -388,15 +388,17 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, 
         </div>
       </div>
 
-      {/* Disclaimer beneath card */}
-      <p className="text-xs text-gray-500 mt-3 leading-relaxed">
-        This calculator is for illustration only and is not a quote or an offer of finance. Finance is subject to status and affordability checks. You must be 18 or over and a UK resident. Terms and conditions apply.
-      </p>
-
-      {/* Regulatory footer */}
-      <div className="mt-4 text-xs text-gray-500 leading-relaxed border-t border-gray-200 pt-4">
-        Epping Car Sales is authorised and regulated by the Financial Conduct Authority, firm reference number 1054225. We are a credit broker, not a lender. We can introduce you to a panel of lenders who may be able to provide finance for your purchase. If you take out finance following our introduction, we will typically receive a commission from the lender or broker. You can ask us at any time for details of the commission we expect to receive.
-      </div>
+      {/* Disclaimer + regulatory footer — full view only */}
+      {!compact && (
+        <>
+          <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+            This calculator is for illustration only and is not a quote or an offer of finance. Finance is subject to status and affordability checks. You must be 18 or over and a UK resident. Terms and conditions apply.
+          </p>
+          <div className="mt-4 text-xs text-gray-500 leading-relaxed border-t border-gray-200 pt-4">
+            Epping Car Sales is authorised and regulated by the Financial Conduct Authority, firm reference number 1054225. We are a credit broker, not a lender. We can introduce you to a panel of lenders who may be able to provide finance for your purchase. If you take out finance following our introduction, we will typically receive a commission from the lender or broker. You can ask us at any time for details of the commission we expect to receive.
+          </div>
+        </>
+      )}
     </div>
   )
 }
