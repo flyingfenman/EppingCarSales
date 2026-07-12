@@ -41,6 +41,7 @@ function Stepper({
   max,
   prefix = "£",
   note,
+  compact,
 }: {
   label: string
   value: number
@@ -50,9 +51,10 @@ function Stepper({
   max: number
   prefix?: string
   note?: string
+  compact?: boolean
 }) {
   return (
-    <div className="mb-5">
+    <div className={compact ? "mb-2" : "mb-5"}>
       <label className="block text-sm font-semibold mb-1.5" style={{ color: BRAND_NAVY }}>
         {label}
       </label>
@@ -108,9 +110,10 @@ function Row({ label, value }: { label: string; value: string }) {
 interface FinanceCalculatorProps {
   initialPrice?: number
   vehicleName?: string
+  compact?: boolean
 }
 
-export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }: FinanceCalculatorProps) {
+export default function FinanceCalculator({ initialPrice = 10_000, vehicleName, compact = false }: FinanceCalculatorProps) {
   const [tab, setTab] = useState<"monthly" | "afford">("monthly")
 
   // Monthly tab state
@@ -150,23 +153,27 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
 
   return (
     <div className="w-full">
-      {/* Above-card header */}
-      <div className="text-center mb-4">
-        <p className="text-base font-semibold" style={{ color: BRAND_NAVY }}>
-          Representative 11.9% APR
-        </p>
-        <p className="text-sm font-bold" style={{ color: BRAND_NAVY }}>
-          Epping Car Sales is a credit broker, not a lender.
-        </p>
-      </div>
+      {/* Above-card header — hidden in compact mode */}
+      {!compact && (
+        <div className="text-center mb-4">
+          <p className="text-base font-semibold" style={{ color: BRAND_NAVY }}>
+            Representative 11.9% APR
+          </p>
+          <p className="text-sm font-bold" style={{ color: BRAND_NAVY }}>
+            Epping Car Sales is a credit broker, not a lender.
+          </p>
+        </div>
+      )}
 
       {/* Main calculator card */}
       <div className="rounded-2xl border border-gray-200 bg-white shadow-md overflow-hidden">
-        <div className="px-5 pt-4 pb-0">
-          <p className="text-xs italic text-gray-400">For illustration purposes only</p>
-        </div>
+        {!compact && (
+          <div className="px-5 pt-4 pb-0">
+            <p className="text-xs italic text-gray-400">For illustration purposes only</p>
+          </div>
+        )}
 
-        <div className="p-5 md:p-6 flex flex-col md:flex-row gap-6">
+        <div className={`${compact ? "p-4" : "p-5 md:p-6"} flex flex-col md:flex-row gap-4`}>
           {/* ── Left: inputs ── */}
           <div className="flex-1 min-w-0">
             {/* Tabs */}
@@ -197,6 +204,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                   step={250}
                   min={MIN_PRICE}
                   max={MAX_PRICE}
+                  compact={compact}
                 />
                 <Stepper
                   label="Deposit"
@@ -206,8 +214,9 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                   min={0}
                   max={maxDeposit}
                   note={depositCapped ? `Deposit capped at 50% of vehicle price (${gbp.format(maxDeposit)})` : undefined}
+                  compact={compact}
                 />
-                <div className="mb-5">
+                <div className={compact ? "mb-2" : "mb-5"}>
                   <label className="block text-sm font-semibold mb-1.5" style={{ color: BRAND_NAVY }}>
                     Finance Term (Months)
                   </label>
@@ -239,6 +248,7 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                   step={10}
                   min={100}
                   max={1000}
+                  compact={compact}
                 />
                 <Stepper
                   label="Deposit"
@@ -247,8 +257,9 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                   step={50}
                   min={0}
                   max={50000}
+                  compact={compact}
                 />
-                <div className="mb-5">
+                <div className={compact ? "mb-2" : "mb-5"}>
                   <label className="block text-sm font-semibold mb-1.5" style={{ color: BRAND_NAVY }}>
                     Finance Term (Months)
                   </label>
@@ -292,10 +303,10 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                     <span className="font-semibold" style={{ color: BRAND_NAVY }}>{term}</span> monthly payments of
                   </p>
                   <div className="flex items-end mb-1">
-                    <span className="font-extrabold leading-none" style={{ fontSize: "3rem", color: BRAND_ACCENT }}>
+                    <span className="font-extrabold leading-none" style={{ fontSize: compact ? "2rem" : "3rem", color: BRAND_ACCENT }}>
                       {formatPayment(monthlyResults.payment).pounds}
                     </span>
-                    <span className="font-bold mb-1 ml-0.5" style={{ fontSize: "1.5rem", color: BRAND_ACCENT }}>
+                    <span className="font-bold mb-1 ml-0.5" style={{ fontSize: compact ? "1.1rem" : "1.5rem", color: BRAND_ACCENT }}>
                       {formatPayment(monthlyResults.payment).pence}
                     </span>
                   </div>
@@ -318,21 +329,25 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                     View our cars
                   </Link>
 
-                  <p className="text-xs font-semibold mb-2" style={{ color: BRAND_NAVY }}>Breakdown</p>
-                  {vehicleName && <Row label="Vehicle" value={vehicleName} />}
-                  <Row label="Vehicle Price" value={gbp.format(price)} />
-                  <Row label="Deposit" value={gbp.format(safeDeposit)} />
-                  <Row label="Amount to Finance" value={gbp.format(monthlyResults.credit)} />
-                  <Row label="APR" value="11.9% representative" />
-                  {OPTION_FEE > 0 && <Row label="Option to purchase fee" value={gbp.format(OPTION_FEE)} />}
-                  <Row label="Total Cost of Credit" value={gbp.format(monthlyResults.totalCostOfCredit)} />
-                  <Row label="Total Repayable" value={gbp.format(monthlyResults.totalRepayable)} />
+                  {!compact && (
+                    <>
+                      <p className="text-xs font-semibold mb-2" style={{ color: BRAND_NAVY }}>Breakdown</p>
+                      {vehicleName && <Row label="Vehicle" value={vehicleName} />}
+                      <Row label="Vehicle Price" value={gbp.format(price)} />
+                      <Row label="Deposit" value={gbp.format(safeDeposit)} />
+                      <Row label="Amount to Finance" value={gbp.format(monthlyResults.credit)} />
+                      <Row label="APR" value="11.9% representative" />
+                      {OPTION_FEE > 0 && <Row label="Option to purchase fee" value={gbp.format(OPTION_FEE)} />}
+                      <Row label="Total Cost of Credit" value={gbp.format(monthlyResults.totalCostOfCredit)} />
+                      <Row label="Total Repayable" value={gbp.format(monthlyResults.totalRepayable)} />
+                    </>
+                  )}
                 </>
               )
             ) : (
               <>
                 <p className="text-sm text-gray-500 mb-2">You could look at cars up to around</p>
-                <p className="font-extrabold leading-none mb-1" style={{ fontSize: "2.5rem", color: BRAND_ACCENT }}>
+                <p className="font-extrabold leading-none mb-1" style={{ fontSize: compact ? "2rem" : "2.5rem", color: BRAND_ACCENT }}>
                   {gbpRounded.format(affordResults.maxPrice)}
                 </p>
                 <p className="text-xs text-gray-500 mb-4">at 11.9% APR representative</p>
@@ -354,14 +369,18 @@ export default function FinanceCalculator({ initialPrice = 10_000, vehicleName }
                   View our cars
                 </Link>
 
-                <p className="text-xs font-semibold mb-2" style={{ color: BRAND_NAVY }}>Breakdown</p>
-                <Row label="Monthly Budget" value={gbp.format(budget)} />
-                <Row label="Deposit" value={gbp.format(affordDeposit)} />
-                <Row label="Amount to Finance" value={gbp.format(affordResults.credit)} />
-                <Row label="APR" value="11.9% representative" />
-                {OPTION_FEE > 0 && <Row label="Option to purchase fee" value={gbp.format(OPTION_FEE)} />}
-                <Row label="Total Cost of Credit" value={gbp.format(affordResults.totalCostOfCredit)} />
-                <Row label="Total Repayable" value={gbp.format(affordResults.totalRepayable)} />
+                {!compact && (
+                  <>
+                    <p className="text-xs font-semibold mb-2" style={{ color: BRAND_NAVY }}>Breakdown</p>
+                    <Row label="Monthly Budget" value={gbp.format(budget)} />
+                    <Row label="Deposit" value={gbp.format(affordDeposit)} />
+                    <Row label="Amount to Finance" value={gbp.format(affordResults.credit)} />
+                    <Row label="APR" value="11.9% representative" />
+                    {OPTION_FEE > 0 && <Row label="Option to purchase fee" value={gbp.format(OPTION_FEE)} />}
+                    <Row label="Total Cost of Credit" value={gbp.format(affordResults.totalCostOfCredit)} />
+                    <Row label="Total Repayable" value={gbp.format(affordResults.totalRepayable)} />
+                  </>
+                )}
               </>
             )}
           </div>

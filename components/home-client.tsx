@@ -23,6 +23,22 @@ interface HomeClientProps {
 export default function HomeClient({ featuredCars }: HomeClientProps) {
   return (
     <>
+      {/* Hero — restored to top */}
+      <section className="hero">
+        <div className="container">
+          <h1>Welcome to Epping Car Sales</h1>
+          <p>Your premier dealership for quality used cars.</p>
+          <div className="hero-buttons">
+            <Link href="/used-cars" className="btn">
+              Browse Inventory
+            </Link>
+            <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
+              Watch Our YouTube Channel
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="main-content">
         <div className="section-title">
           <h2>Featured Vehicles</h2>
@@ -87,36 +103,23 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
         )}
       </section>
 
-      {/* Compact hero + finance calculator strip */}
-      <section className="hero" style={{ padding: "2rem 0" }}>
-        <div className="container">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-            <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-2xl md:text-3xl font-bold mb-2">Welcome to Epping Car Sales</h1>
-              <p className="text-base text-gray-600 mb-5">Your premier dealership for quality used cars.</p>
-              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
-                <Link href="/used-cars" className="btn">
-                  Browse Inventory
-                </Link>
-                <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
-                  Watch Our YouTube Channel
-                </a>
-              </div>
-            </div>
-            <div className="flex-1 w-full">
-              <FinanceCalculator initialPrice={10000} />
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* About + Finance Calculator side by side */}
       <section className="intro">
         <div className="container">
-          <h2>About Epping Car Sales</h2>
-          <p>
-            At Epping Car Sales, we pride ourselves on providing you with the best selection of used cars at competitive
-            prices. Browse our online inventory or contact us to set up a test drive. We are always here to help!
-          </p>
+          <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
+            {/* Left: about text */}
+            <div className="lg:w-2/5">
+              <h2 className="mb-3">About Epping Car Sales</h2>
+              <p>
+                At Epping Car Sales, we pride ourselves on providing you with the best selection of used cars at competitive
+                prices. Browse our online inventory or contact us to set up a test drive. We are always here to help!
+              </p>
+            </div>
+            {/* Right: compact finance calculator */}
+            <div className="lg:w-3/5 w-full">
+              <FinanceCalculator initialPrice={10000} compact />
+            </div>
+          </div>
         </div>
       </section>
 
