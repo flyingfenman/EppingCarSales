@@ -32,7 +32,7 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
             <Link href="/used-cars" className="btn">
               Browse Inventory
             </Link>
-            <a href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener noreferrer" className="btn btn-red">
+            <a href="https://www.youtube.com/@EppingCars" target="_blank" rel="noopener noreferrer" className="btn btn-red">
               Watch Our YouTube Channel
             </a>
           </div>
