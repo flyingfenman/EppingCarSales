@@ -99,8 +99,10 @@ export default function RootLayout({
               telephone: "+441992367909",
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "Patches Farm, Galley Hill",
                 addressLocality: "Epping",
                 addressRegion: "Essex",
+                postalCode: "EN9 2AG",
                 addressCountry: "GB",
               },
               openingHoursSpecification: [

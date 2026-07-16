@@ -90,7 +90,7 @@ export default function Contact() {
             </div>
             <h3 className="text-xl font-bold mb-2">Visit Us</h3>
             <p className="text-muted-foreground mb-4">Appointment Only</p>
-            <p className="font-medium">YOUR_ADDRESS</p>
+            <p className="font-medium">Patches Farm, Galley Hill<br />Epping, EN9 2AG</p>
           </CardContent>
         </Card>
       </div>
@@ -203,12 +203,18 @@ export default function Contact() {
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
           <div className="bg-background p-6 rounded-lg max-w-md text-center">
             <h3 className="text-xl font-bold mb-2">Visit Us</h3>
-            <p className="mb-4">YOUR_ADDRESS</p>
-            <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
+            <p className="mb-4">Patches Farm, Galley Hill, Epping, EN9 2AG</p>
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=Patches+Farm+Galley+Hill+Epping+EN9+2AG"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
+            </a>
           </div>
         </div>
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9935.658355237862!2d-0.1418!3d51.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzI2LjYiTiAwwrAwOCczMC41Ilc!5e0!3m2!1sen!2suk!4v1616603835275!5m2!1sen!2suk"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2474.0!2d0.0167!3d51.7167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d89f0e0e0e0e0f%3A0x0!2sPatches+Farm%2C+Galley+Hill%2C+Epping+EN9+2AG!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
           width="100%"
           height="400"
           style={{ border: 0 }}
