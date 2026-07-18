@@ -79,7 +79,7 @@ export default function Contact() {
             </div>
             <h3 className="text-xl font-bold mb-2">Email Us</h3>
             <p className="text-muted-foreground mb-4">We'll respond promptly</p>
-            <p className="font-medium">YOUR_EMAIL_ADDRESS</p>
+            <a href="mailto:henry@eppingcarsales.com" className="font-medium hover:underline">henry@eppingcarsales.com</a>
           </CardContent>
         </Card>
 
