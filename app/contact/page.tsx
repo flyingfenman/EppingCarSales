@@ -47,16 +47,16 @@ export default function Contact() {
   }
 
   return (
-    <div className="container py-12 px-4 md:px-6">
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Contact Epping Car Sales</h1>
-      <p className="text-muted-foreground mb-10 max-w-3xl">
+    <div className="container py-8 md:py-12 px-4 md:px-6">
+      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4 md:mb-6">Contact Epping Car Sales</h1>
+      <p className="text-muted-foreground mb-8 md:mb-10 max-w-3xl">
         If you have any questions about our stock, services, or would like to book a test drive, feel free to reach out
         using the form below or by phone.
       </p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-12">
         <Card>
-          <CardContent className="p-6 flex flex-col items-center text-center">
+          <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
               <Phone className="h-6 w-6 text-primary" />
             </div>
@@ -73,18 +73,18 @@ export default function Contact() {
         </Card>
 
         <Card>
-          <CardContent className="p-6 flex flex-col items-center text-center">
+          <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
               <Mail className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold mb-2">Email Us</h3>
             <p className="text-muted-foreground mb-4">We'll respond promptly</p>
-            <p className="font-medium">YOUR_EMAIL_ADDRESS</p>
+            <a href="mailto:henry@eppingcarsales.com" className="font-medium hover:underline">henry@eppingcarsales.com</a>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="p-6 flex flex-col items-center text-center">
+          <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
               <MapPin className="h-6 w-6 text-primary" />
             </div>
@@ -199,30 +199,37 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="rounded-lg overflow-hidden h-[400px] relative">
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
-          <div className="bg-background p-6 rounded-lg max-w-md text-center">
-            <h3 className="text-xl font-bold mb-2">Visit Us</h3>
-            <p className="mb-4">Patches Farm, Galley Hill, Epping, EN9 2AG</p>
-            <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Patches+Farm+Galley+Hill+Epping+EN9+2AG"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">Get Directions</Button>
-            </a>
-          </div>
-        </div>
+      <div className="rounded-lg overflow-hidden border border-border">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2474.0!2d0.0167!3d51.7167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d89f0e0e0e0e0f%3A0x0!2sPatches+Farm%2C+Galley+Hill%2C+Epping+EN9+2AG!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+          src="https://maps.google.com/maps?width=100%25&height=400&hl=en&q=Patches%20Farm%2C%20Galley%20Hill%2C%20Epping%20EN9%202AG&t=&z=14&ie=UTF8&iwloc=B&output=embed"
           width="100%"
-          height="400"
+          height="100%"
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
           title="Epping Car Sales Location"
-          className="w-full h-full"
+          className="w-full h-[280px] sm:h-[360px] md:h-[400px] block"
         ></iframe>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-background p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+            <div>
+              <h3 className="font-bold leading-tight">Visit Us (Appointment Only)</h3>
+              <p className="text-sm text-muted-foreground">Patches Farm, Galley Hill, Epping, EN9 2AG</p>
+            </div>
+          </div>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=Patches+Farm+Galley+Hill+Epping+EN9+2AG"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-shrink-0"
+          >
+            <Button className="w-full sm:w-auto bg-gjc-yellow hover:bg-gjc-yellow-hover text-black font-semibold">
+              Get Directions
+            </Button>
+          </a>
+        </div>
       </div>
     </div>
   )

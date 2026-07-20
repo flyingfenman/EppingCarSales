@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 interface Car {
   id: string
+  slug?: string
   title: string
   make: string
   model: string
@@ -209,20 +210,20 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
             <p className="text-xl text-gray-600">No vehicles match your filters. Try adjusting your search criteria.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredCars.map((car, index) => (
               <Card key={car.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
                 <div className="relative h-56 bg-gray-100 overflow-hidden">
                   {car.images && car.images[0] ? (
                     <Image
                       src={car.images[0] || "/placeholder.svg"}
-                      alt={car.title}
+                      alt={`${car.title} for sale at Epping Car Sales`}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={75}
-                      priority={index < 6}
-                      loading={index < 6 ? "eager" : "lazy"}
+                      sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 36px), 380px"
+                      quality={80}
+                      priority={index === 0}
+                      loading={index === 0 ? "eager" : "lazy"}
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
@@ -245,7 +246,7 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
                   </p>
                   <div className="flex items-center justify-between">
                     <p className="text-xl font-bold">£{car.price.toLocaleString()}</p>
-                    <Link href={`/used-cars/${car.id}`}>
+                    <Link href={`/used-cars/${car.slug || car.id}`}>
                       <Button className="bg-gjc-yellow hover:bg-gjc-yellow-hover text-black">View Details</Button>
                     </Link>
                   </div>

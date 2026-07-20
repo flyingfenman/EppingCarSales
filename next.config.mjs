@@ -21,9 +21,10 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-    formats: ['image/webp'],
-    deviceSizes: [640, 828, 1080, 1200, 1920],
-    imageSizes: [48, 96, 256],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1600],
+    imageSizes: [48, 96, 256, 384],
+    qualities: [40, 70, 75, 80],
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year cache
     dangerouslyAllowSVG: false,
   },

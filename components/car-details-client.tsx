@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight, Share2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Share2, Phone } from "lucide-react"
 import ReservationCheckout from "@/components/reservation-checkout"
 import { trackCarView, trackInquiry } from "@/lib/analytics"
 import FinanceCalculator from "@/components/finance-calculator"
@@ -49,34 +49,6 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
   useEffect(() => {
     trackCarView(car.id, car.title, car.price)
   }, [car.id, car.title, car.price])
-
-  // Only preload the next and previous images — not the entire gallery
-  useEffect(() => {
-    const nextIndex = (activeImageIndex + 1) % car.images.length
-    const prevIndex = (activeImageIndex - 1 + car.images.length) % car.images.length
-
-    const preloadLinks: HTMLLinkElement[] = []
-
-    ;[nextIndex, prevIndex].forEach((index) => {
-      if (car.images[index]) {
-        const id = `preload-img-${index}`
-        if (!document.getElementById(id)) {
-          const link = document.createElement("link")
-          link.id = id
-          link.rel = "preload"
-          link.as = "image"
-          link.href = car.images[index]
-          link.crossOrigin = "anonymous"
-          document.head.appendChild(link)
-          preloadLinks.push(link)
-        }
-      }
-    })
-
-    return () => {
-      preloadLinks.forEach((link) => link.remove())
-    }
-  }, [activeImageIndex, car.images])
 
   const handlePrevImage = useCallback(() => {
     setIsImageLoading(true)
@@ -166,6 +138,10 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
     window.location.href = "/contact"
   }
 
+  const scrollToReserve = useCallback(() => {
+    document.getElementById("reserve-section")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }, [])
+
   const youtubeEmbedUrl = useMemo(() => {
     if (!car.youtube_url) return null
     const videoId =
@@ -175,17 +151,17 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <Link href="/used-cars" className="inline-flex items-center text-black hover:underline mb-6">
+      <div className="container mx-auto px-4 py-6 md:py-8 pb-28 lg:pb-8">
+        <Link href="/used-cars" className="inline-flex items-center text-black hover:underline mb-4 md:mb-6">
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back to Inventory
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Left Column - Images */}
           <div className="lg:col-span-2">
             <div
-              className="relative h-[400px] md:h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-4 select-none"
+              className="relative h-[260px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-3 md:mb-4 select-none"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -200,8 +176,8 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     fill
                     className={`object-contain md:object-cover transition-opacity duration-200 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
                     priority={activeImageIndex === 0}
-                    quality={70}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+                    quality={80}
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1199px) calc(66vw - 32px), 800px"
                     placeholder="blur"
                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQQG/8QAIRAAAgICAQUAAAAAAAAAAAAAAQIDEQQSITFBUWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Az9LqKtFQsWt1xWN+Vy5xl3+sXbf3LRRRBn//2Q=="
                     onLoad={() => setIsImageLoading(false)}
@@ -212,17 +188,17 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
               {/* Navigation Arrows - improved styling */}
               <button
                 onClick={handlePrevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 md:p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="h-6 w-6" />
+                <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
               </button>
               <button
                 onClick={handleNextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 md:p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
                 aria-label="Next image"
               >
-                <ChevronRight className="h-6 w-6" />
+                <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
               </button>
 
               {/* Image Counter */}
@@ -286,11 +262,11 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
           </div>
 
           {/* Right Column - Details & Actions */}
-          <div className="space-y-6">
+          <div className="space-y-6" id="reserve-section">
             <Card>
-              <CardContent className="p-6">
-                <h1 className="text-3xl font-bold mb-2">{car.title}</h1>
-                <p className="text-4xl font-bold text-gjc-yellow mb-6">£{car.price.toLocaleString()}</p>
+              <CardContent className="p-5 md:p-6">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-balance">{car.title}</h1>
+                <p className="text-3xl sm:text-4xl font-bold text-gjc-yellow mb-6">£{car.price.toLocaleString()}</p>
 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between border-b pb-2">
@@ -371,6 +347,30 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
           <FinanceCalculator initialPrice={car.price} vehicleName={car.title} />
         </div>
       </div>
+
+      {/* Sticky mobile action bar */}
+      {!car.sold && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white border-t border-gray-200 shadow-[0_-4px_16px_rgba(0,0,0,0.1)] px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex items-center gap-3">
+          <div className="flex-shrink-0">
+            <p className="text-[11px] text-gray-500 leading-none mb-1">Price</p>
+            <p className="text-xl font-bold text-black leading-none">£{car.price.toLocaleString()}</p>
+          </div>
+          <a
+            href="tel:+441992367909"
+            className="flex-1 flex items-center justify-center gap-2 h-12 rounded-lg border-2 border-black text-black font-semibold text-sm active:scale-95 transition-transform"
+            aria-label="Call Epping Car Sales"
+          >
+            <Phone className="h-4 w-4" />
+            Call
+          </a>
+          <button
+            onClick={scrollToReserve}
+            className="flex-1 flex items-center justify-center h-12 rounded-lg bg-green-600 text-white font-semibold text-sm active:scale-95 transition-transform"
+          >
+            Reserve £99
+          </button>
+        </div>
+      )}
     </div>
   )
 }

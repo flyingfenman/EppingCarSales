@@ -1,4 +1,11 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Read the Epping Car Sales privacy policy and how we protect and use your information.",
+  alternates: { canonical: "https://www.eppingcarsales.com/privacy" },
+}
 
 export default function PrivacyPolicy() {
   return (

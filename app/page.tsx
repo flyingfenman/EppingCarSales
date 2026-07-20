@@ -1,6 +1,5 @@
-import { createServerClient } from "@supabase/ssr"
-import { cookies } from "next/headers"
 import HomeClient from "@/components/home-client"
+import { getFeaturedCars } from "@/lib/cars"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -17,24 +16,7 @@ export const metadata: Metadata = {
   },
 }
 
-async function getFeaturedCars() {
-  const cookieStore = await cookies()
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-      },
-    },
-  )
-
-  const { data: cars } = await supabase.from("cars").select("*").eq("featured", true).eq("sold", false).limit(3)
-
-  return cars || []
-}
+export const revalidate = 300
 
 export default async function Home() {
   const featuredCars = await getFeaturedCars()

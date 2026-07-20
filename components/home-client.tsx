@@ -6,6 +6,7 @@ import FinanceCalculator from "@/components/finance-calculator"
 
 interface Car {
   id: string
+  slug?: string
   title: string
   year: number
   fuel_type: string
@@ -59,10 +60,11 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
                   {car.images && car.images[0] ? (
                     <Image
                       src={car.images[0] || "/placeholder.svg"}
-                      alt={car.title}
+                      alt={`${car.title} for sale at Epping Car Sales`}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1199px) calc(50vw - 36px), 380px"
                       className="object-cover"
+                      quality={80}
                       loading="lazy"
                     />
                   ) : (
@@ -78,7 +80,7 @@ export default function HomeClient({ featuredCars }: HomeClientProps) {
                     {car.year} | {car.fuel_type} | {car.transmission} | {car.mileage.toLocaleString()} miles
                   </p>
                   <p className="price">£{car.price.toLocaleString()}</p>
-                  <Link href={`/used-cars/${car.id}`} className="btn">
+                  <Link href={`/used-cars/${car.slug || car.id}`} className="btn">
                     View Details
                   </Link>
                 </div>
