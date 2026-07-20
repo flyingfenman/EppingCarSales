@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight, Share2, Phone } from "lucide-react"
+import { ChevronLeft, ChevronRight, Share2, Phone, X, Expand } from "lucide-react"
 import ReservationCheckout from "@/components/reservation-checkout"
 import { trackCarView, trackInquiry } from "@/lib/analytics"
 import FinanceCalculator from "@/components/finance-calculator"
@@ -44,7 +44,22 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
   const [isImageLoading, setIsImageLoading] = useState(true)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const thumbnailContainerRef = useRef<HTMLDivElement>(null)
+
+  const openLightbox = useCallback(() => setIsLightboxOpen(true), [])
+  const closeLightbox = useCallback(() => setIsLightboxOpen(false), [])
+
+  // Lock body scroll while the lightbox is open
+  useEffect(() => {
+    if (isLightboxOpen) {
+      const original = document.body.style.overflow
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = original
+      }
+    }
+  }, [isLightboxOpen])
 
   useEffect(() => {
     trackCarView(car.id, car.title, car.price)
@@ -111,10 +126,11 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") handlePrevImage()
       if (e.key === "ArrowRight") handleNextImage()
+      if (e.key === "Escape") closeLightbox()
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [handlePrevImage, handleNextImage])
+  }, [handlePrevImage, handleNextImage, closeLightbox])
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -161,10 +177,20 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
           {/* Left Column - Images */}
           <div className="lg:col-span-2">
             <div
-              className="relative h-[260px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-3 md:mb-4 select-none"
+              className="relative h-[260px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-lg overflow-hidden mb-3 md:mb-4 select-none cursor-zoom-in"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              onClick={openLightbox}
+              role="button"
+              tabIndex={0}
+              aria-label="Tap to view photos fullscreen"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  openLightbox()
+                }
+              }}
             >
               {car.images && car.images[activeImageIndex] && (
                 <>
@@ -187,14 +213,20 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
 
               {/* Navigation Arrows - improved styling */}
               <button
-                onClick={handlePrevImage}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handlePrevImage()
+                }}
                 className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 md:p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
               </button>
               <button
-                onClick={handleNextImage}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleNextImage()
+                }}
                 className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 md:p-3 rounded-full transition-all shadow-lg hover:scale-110 z-20"
                 aria-label="Next image"
               >
@@ -204,6 +236,12 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
               {/* Image Counter */}
               <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm z-20">
                 {activeImageIndex + 1} / {car.images.length}
+              </div>
+
+              {/* Tap to enlarge hint */}
+              <div className="absolute bottom-4 left-4 flex items-center gap-1.5 bg-black/70 text-white px-3 py-1 rounded-full text-xs z-20 pointer-events-none">
+                <Expand className="h-3.5 w-3.5" />
+                Tap to enlarge
               </div>
             </div>
 
@@ -369,6 +407,93 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
           >
             Reserve £99
           </button>
+        </div>
+      )}
+
+      {/* Fullscreen image lightbox */}
+      {isLightboxOpen && car.images && car.images.length > 0 && (
+        <div
+          className="fixed inset-0 z-[100] bg-black flex flex-col select-none"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${car.title} photo gallery`}
+        >
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 py-3 text-white pt-[calc(0.75rem+env(safe-area-inset-top))]">
+            <span className="text-sm font-medium bg-white/15 px-3 py-1 rounded-full">
+              {activeImageIndex + 1} / {car.images.length}
+            </span>
+            <button
+              onClick={closeLightbox}
+              className="flex items-center justify-center h-10 w-10 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 transition"
+              aria-label="Close gallery"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+
+          {/* Swipeable image area */}
+          <div
+            className="relative flex-1 flex items-center justify-center overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <Image
+              key={activeImageIndex}
+              src={car.images[activeImageIndex] || "/placeholder.svg"}
+              alt={`${car.title} - Image ${activeImageIndex + 1}`}
+              fill
+              className="object-contain"
+              quality={90}
+              sizes="100vw"
+              priority
+            />
+
+            {/* Desktop arrows */}
+            {car.images.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrevImage}
+                  className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 items-center justify-center h-12 w-12 rounded-full bg-white/15 hover:bg-white/25 text-white active:scale-95 transition z-10"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="h-7 w-7" />
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 items-center justify-center h-12 w-12 rounded-full bg-white/15 hover:bg-white/25 text-white active:scale-95 transition z-10"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="h-7 w-7" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnail strip */}
+          {car.images.length > 1 && (
+            <div className="px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-2">
+              <p className="text-center text-white/60 text-xs mb-2 sm:hidden">Swipe to browse photos</p>
+              <div className="flex gap-2 overflow-x-auto justify-start sm:justify-center">
+                {car.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setIsImageLoading(true)
+                      setActiveImageIndex(index)
+                    }}
+                    className={`relative flex-shrink-0 w-14 h-14 rounded-md overflow-hidden transition ${
+                      index === activeImageIndex ? "ring-2 ring-gjc-yellow" : "opacity-50 hover:opacity-100"
+                    }`}
+                    aria-label={`View image ${index + 1}`}
+                  >
+                    <Image src={image || "/placeholder.svg"} alt="" fill className="object-cover" sizes="56px" quality={40} />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
