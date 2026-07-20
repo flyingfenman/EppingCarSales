@@ -50,34 +50,6 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
     trackCarView(car.id, car.title, car.price)
   }, [car.id, car.title, car.price])
 
-  // Only preload the next and previous images — not the entire gallery
-  useEffect(() => {
-    const nextIndex = (activeImageIndex + 1) % car.images.length
-    const prevIndex = (activeImageIndex - 1 + car.images.length) % car.images.length
-
-    const preloadLinks: HTMLLinkElement[] = []
-
-    ;[nextIndex, prevIndex].forEach((index) => {
-      if (car.images[index]) {
-        const id = `preload-img-${index}`
-        if (!document.getElementById(id)) {
-          const link = document.createElement("link")
-          link.id = id
-          link.rel = "preload"
-          link.as = "image"
-          link.href = car.images[index]
-          link.crossOrigin = "anonymous"
-          document.head.appendChild(link)
-          preloadLinks.push(link)
-        }
-      }
-    })
-
-    return () => {
-      preloadLinks.forEach((link) => link.remove())
-    }
-  }, [activeImageIndex, car.images])
-
   const handlePrevImage = useCallback(() => {
     setIsImageLoading(true)
     setActiveImageIndex((prev) => (prev === 0 ? car.images.length - 1 : prev - 1))
@@ -200,8 +172,8 @@ export default function CarDetailsClient({ car }: CarDetailsClientProps) {
                     fill
                     className={`object-contain md:object-cover transition-opacity duration-200 ${isImageLoading ? "opacity-0" : "opacity-100"}`}
                     priority={activeImageIndex === 0}
-                    quality={70}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+                    quality={80}
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1199px) calc(66vw - 32px), 800px"
                     placeholder="blur"
                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQQG/8QAIRAAAgICAQUAAAAAAAAAAAAAAQIDEQQSITFBUWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Az9LqKtFQsWt1xWN+Vy5xl3+sXbf3LRRRBn//2Q=="
                     onLoad={() => setIsImageLoading(false)}

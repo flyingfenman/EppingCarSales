@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
 
@@ -35,7 +35,10 @@ export async function createCar(data: CarFormData) {
     throw new Error(`Failed to create car: ${error.message}`)
   }
 
+  revalidateTag("cars")
+  revalidatePath("/")
   revalidatePath("/used-cars")
+  revalidatePath("/sitemap.xml")
   revalidatePath("/admin/dashboard")
 
   return car
@@ -50,8 +53,12 @@ export async function updateCar(id: string, data: Partial<CarFormData>) {
     throw new Error(`Failed to update car: ${error.message}`)
   }
 
+  revalidateTag("cars")
+  revalidatePath("/")
   revalidatePath("/used-cars")
   revalidatePath(`/used-cars/${id}`)
+  if (car.slug) revalidatePath(`/used-cars/${car.slug}`)
+  revalidatePath("/sitemap.xml")
   revalidatePath("/admin/dashboard")
 
   return car
@@ -66,7 +73,10 @@ export async function deleteCar(id: string) {
     throw new Error(`Failed to delete car: ${error.message}`)
   }
 
+  revalidateTag("cars")
+  revalidatePath("/")
   revalidatePath("/used-cars")
+  revalidatePath("/sitemap.xml")
   revalidatePath("/admin/dashboard")
 
   return { success: true }

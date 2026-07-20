@@ -83,7 +83,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -109,7 +109,7 @@ export default function RootLayout({
                 { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "09:00", closes: "18:00" },
                 { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "17:00" },
               ],
-              sameAs: [],
+              sameAs: ["https://www.youtube.com/@EppingCars"],
             }),
           }}
         />

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Car Finance Calculator | Epping Car Sales",
   description:
     "Use our finance calculator to estimate monthly payments on your next car. Representative 11.9% APR. Epping Car Sales is a credit broker, not a lender.",
+  alternates: { canonical: "https://www.eppingcarsales.com/finance" },
 }
 
 const MIN_PRICE = 2000

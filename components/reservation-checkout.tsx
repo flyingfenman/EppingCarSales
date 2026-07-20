@@ -45,7 +45,9 @@ export default function ReservationCheckout({
 
   const startCheckout = useCallback(async () => {
     try {
-      return await startReservationCheckout(carId, carTitle)
+      const clientSecret = await startReservationCheckout(carId, carTitle)
+      if (!clientSecret) throw new Error("Payment session could not be created")
+      return clientSecret
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to start checkout")
       throw err

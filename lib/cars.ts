@@ -37,11 +37,9 @@ export const getFeaturedCars = unstable_cache(
 export const getCarByIdentifier = unstable_cache(
   async (identifier: string) => {
     const supabase = createAdminClient()
-    const { data, error } = await supabase
-      .from("cars")
-      .select("*")
-      .or(`id.eq.${identifier},slug.eq.${identifier}`)
-      .maybeSingle()
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(identifier)
+    const query = supabase.from("cars").select("*")
+    const { data, error } = await (isUuid ? query.eq("id", identifier) : query.eq("slug", identifier)).maybeSingle()
 
     if (error) throw new Error(`Failed to fetch car: ${error.message}`)
     return data
