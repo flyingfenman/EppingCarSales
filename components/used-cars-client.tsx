@@ -210,7 +210,7 @@ export default function UsedCarsClient({ initialCars }: UsedCarsClientProps) {
             <p className="text-xl text-gray-600">No vehicles match your filters. Try adjusting your search criteria.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredCars.map((car, index) => (
               <Card key={car.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
                 <div className="relative h-56 bg-gray-100 overflow-hidden">
