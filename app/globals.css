@@ -231,7 +231,7 @@
   }
 
   .section-title {
-    @apply text-center mb-12;
+    @apply text-center mb-12 px-4 sm:px-6 lg:px-8;
   }
 
   .section-title h2 {
@@ -243,7 +243,7 @@
   }
 
   .featured-cars {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl 2xl:max-w-7xl mx-auto;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .car-card {
